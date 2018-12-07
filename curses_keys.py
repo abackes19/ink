@@ -1,12 +1,12 @@
 #the files needed for the math and key inputs
-import curses
-import math
-import fractions
+import curses; import math; import fractions; import setup; import RoboPiLib as RPL
 #to set starting coordinates for curses to track
 x = 10; y = 10
 #to define the lengths of the arm
 d_one = 10
 d_two = 10
+s_pin = 0
+e_pin = 1
 height_of_robot = 5
 #to account for errors in calculations later
 d_one = d_one + 0.0000000001; d_two = d_two + 0.0000000001
@@ -69,6 +69,9 @@ while key != ord('q'):
         x = 0
     if y < -height_of_robot:
         y = -height_of_robot
+    #to move the motors
+    RPL.servoWrite(s_pin, input_shoulder)
+    RPL.servoWrite(e_pin, input_elbow)
     #to define what keys preform commands
     if key != curses.ERR: #to read if the user presses something
         if key == ord('w'):
