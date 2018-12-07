@@ -13,7 +13,7 @@ y = input('- ') # given y input- how we tell robot where to go
 
 #for defining the lengths of the arm
 d_one = 10
-d_two = 10
+d_two = 4
 
 sqd_one = math.pow(d_one, 2)
 sqd_two = math.pow(d_two, 2)
@@ -32,6 +32,7 @@ key = ''
 def ik(x, y):
     d_three = math.sqrt(math.pow(y, 2) + math.pow(x, 2)) # determining distance from shoulder to wrist
 
+
     o_reach = d_one + d_two
     if d_three > o_reach:
         return False
@@ -42,20 +43,18 @@ def ik(x, y):
         a_three = math.acos((sqd_one + sqd_two - (math.pow(y, 2) + math.pow(x, 2))) / (2 * d_one * d_two))
         a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
         a_four = math.atan2(y , x) # angle between 0 line and wrist
-
+        a_elbow = a_three * 180/math.pi
         if y >= 0:
             a_shoulder = (a_four + a_two) * 180/math.pi
         elif a_two >= math.fabs(a_four):
             a_shoulder = (a_two - a_four) * 180/math.pi
         elif a_two < math.fabs(a_four):
             a_shoulder = -(math.fabs(a_four) - a_two) * 180/math.pi
+    screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 20, str(a_elbow))
+    screen.addstr(5, 0, "Shoulder angle:"); screen.addstr(5, 20, str(a_shoulder))
 
 
-#
-#def printangles(s, e)
-#    screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 10, )
-#    screen.addstr(5, 0, "Shoulder angle:")
-
+ik(x,y)
 
 while key != ord('q'):
     #so key presses can be read
@@ -73,24 +72,32 @@ while key != ord('q'):
             ik(x,y)
             if ik(x,y) == False:
                 y = y - 0.2
+            elif ik(x,y) == True:
+                y = y + 0.2
         elif key == ord('s'):
-            screen.addstr(0, 65, 's key', curses.color_pair(2))x
+            screen.addstr(0, 65, 's key', curses.color_pair(2))
             y = y - 0.2
             ik(x,y)
             if ik(x,y) == False:
                 y = y + 0.2
+            elif ik(x,y) == True:
+                y = y - 0.2
         elif key == ord('a'):
             screen.addstr(0, 65, 'a key', curses.color_pair(2))
             x = x - 0.2
             ik(x,y)
             if ik(x,y) == False:
                 x = x + 0.2
+            elif ik(x,y) == True:
+                x = x - 0.2
         elif key == ord('d'):
             screen.addstr(0, 65, 'd key', curses.color_pair(2))
             x = x + 0.2
             ik(x,y)
             if ik(x,y) == False:
                 x = x - 0.2
+            elif ik(x,y) == True:
+                x = x + 0.2
 
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
