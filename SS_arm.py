@@ -50,11 +50,12 @@ def ik(x, y):
         elif a_two < math.fabs(a_four):
             a_shoulder = -(math.fabs(a_four) - a_two) * 180/math.pi
 
-def coop(x,y):
-    px = "%i" % x
-    py = "%i" % y
-    screen.addstr(4, 0, px)
-    screen.addstr(6, 0, py)
+
+#
+#def printangles(s, e)
+#    screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 10, )
+#    screen.addstr(5, 0, "Shoulder angle:")
+
 
 while key != ord('q'):
     #so key presses can be read
@@ -63,6 +64,8 @@ while key != ord('q'):
     screen.clear()
     #to format and give instructions for the arm use
     screen.addstr(0, 0, 'Hit   to quit. Use  ,  ,  , and   to move the arm.'); screen.addstr(0, 4, 'Q', curses.color_pair(1)); screen.addstr(0, 19, 'W', curses.color_pair(2)); screen.addstr(0, 22, 'A', curses.color_pair(2)); screen.addstr(0, 25, 'S', curses.color_pair(2)); screen.addstr(0, 32, 'D', curses.color_pair(2)); screen.addstr(0, 51, 'Detected key:')
+    screen.addstr(2, 0, str(x))
+    screen.addstr(2, 10, str(y))
     if key != curses.ERR:
         if key == ord('w'):
             screen.addstr(0, 65, 'w key', curses.color_pair(2))
@@ -70,28 +73,24 @@ while key != ord('q'):
             ik(x,y)
             if ik(x,y) == False:
                 y = y - 0.2
-            coop(x,y)
         elif key == ord('s'):
-            screen.addstr(0, 65, 's key', curses.color_pair(2))
+            screen.addstr(0, 65, 's key', curses.color_pair(2))x
             y = y - 0.2
             ik(x,y)
             if ik(x,y) == False:
                 y = y + 0.2
-            coop(x,y)
         elif key == ord('a'):
             screen.addstr(0, 65, 'a key', curses.color_pair(2))
             x = x - 0.2
             ik(x,y)
             if ik(x,y) == False:
                 x = x + 0.2
-            coop(x,y)
         elif key == ord('d'):
             screen.addstr(0, 65, 'd key', curses.color_pair(2))
             x = x + 0.2
             ik(x,y)
             if ik(x,y) == False:
                 x = x - 0.2
-            coop(x,y)
 
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
