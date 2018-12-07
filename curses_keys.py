@@ -26,14 +26,14 @@ while key != ord('q'): #to end loop if 'q' is hit
     a_two = math.asin((d_two * math.sin(a_three) / d_arm)) #angle between shoulder and wrist
     a_four = math.atan2(y , x) #angle between y = 0 and wrist
     if y >= 0: #define angles of joints
-        a_shoulder = (a_four + a_two) * 180/math.pi
+        a_shoulder = (a_four + a_two)
     elif a_two >= math.fabs(a_four):
-        a_shoulder = (a_two - a_four) * 180/math.pi
+        a_shoulder = (a_two - a_four)
     elif a_two < math.fabs(a_four):
-        a_shoulder = (a_two - math.fabs(a_four)) * 180/math.pi
-    a_elbow = a_three * 180 / math.pi
+        a_shoulder = (a_two - math.fabs(a_four))
+    angle_elbow = a_three * 180 / math.pi; angle_shoulder = a_shoulder * 180 / math.pi
     input_elbow = int(fraction_elbow * a_three * 2000 / math.pi + 400); input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #give motor values
-    angle_shoulder = '%d' %a_shoulder; angle_elbow = '%d' %(a_elbow + 1); screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 21, 'Elbow angle:'); screen.addstr(1, 16, angle_shoulder, curses.color_pair(2)); screen.addstr(1, 34, angle_elbow, curses.color_pair(2)) #print angles of joints
+    print_angle_shoulder = '%d' %angle_shoulder; print_angle_elbow = '%d' %(angle_elbow + 1); screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 21, 'Elbow angle:'); screen.addstr(1, 16, print_angle_shoulder, curses.color_pair(2)); screen.addstr(1, 34, print_angle_elbow, curses.color_pair(2)) #print angles of joints
     key = screen.getch()
     #to reformat the screen every time something is hit
     screen.clear() #so the keys can be read
