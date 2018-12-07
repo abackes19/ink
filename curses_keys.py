@@ -19,7 +19,7 @@ curses.start_color(); curses.use_default_colors(); curses.init_pair(1, curses.CO
 #so the only things that print are the returned values
 curses.noecho()
 #so the screen will update every tenth of a second (from 1 to 225)
-curses.halfdelay(1)
+curses.halfdelay(5)
 #to set key value to be read later
 key = ''
 #to enter into the curses screen
@@ -33,7 +33,7 @@ curses.halfdelay(1)
 #to set key value to be read later
 key = ''
 def ik(x, y):
-    d_three = (y ** 2 + x ** 2) ** 0.5 # determining distance from shoulder to wrist
+    d_three = (y ** 2 + x ** 2) ** 0.5 #determining distance from shoulder to wrist
     if d_three >= d_one + d_two or d_three <= d_one - d_two:
         return False
     else:
@@ -43,8 +43,8 @@ while key != ord('q'):
     #math for the kinimatics
     d_arm = (y ** 2 + x ** 2) ** 0.5
     a_three = math.acos((d_one ** 2 + d_two ** 2 - y ** 2 - x ** 2) / (2 * d_one * d_two))
-    a_two = math.asin((d_two * math.sin(a_three) / d_arm)) # angle between shoulder and wrist
-    a_four = math.atan2(y , x) # angle between 0 line and wrist
+    a_two = math.asin((d_two * math.sin(a_three) / d_arm)) #angle between shoulder and wrist
+    a_four = math.atan2(y , x) #angle between 0 line and wrist
     #define angles of joints
     if y >= 0:
         a_shoulder = (a_four + a_two) * 180/math.pi
@@ -57,6 +57,7 @@ while key != ord('q'):
     input_elbow = int(fraction_elbow * a_three * 2000 / math.pi + 400); input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400)
     #print angles of joints
     angle_shoulder = '%d' %a_shoulder; angle_elbow = '%d' %(a_elbow + 1); screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 21, 'Elbow angle:'); screen.addstr(1, 16, angle_shoulder, curses.color_pair(2)); screen.addstr(1, 34, angle_elbow, curses.color_pair(2))
+    #so the keys can be read
     key = screen.getch()
     #to reformat the screen every time something is hit
     screen.clear()
@@ -96,7 +97,5 @@ while key != ord('q'):
                 x = x + 0.1
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
-            #to signify that there is an invalid input
-            curses.beep()
         #to reformat the terminal after the curses file closes
         curses.endwin()
