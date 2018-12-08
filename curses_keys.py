@@ -21,7 +21,7 @@ while key != ord('q'): #to end loop if 'q' is hit
     else:
         a_shoulder = math.fabs(a_two - a_four)
     angle_elbow = a_three * 180 / math.pi; angle_shoulder = a_shoulder * 180 / math.pi; input_elbow = int(fraction_elbow * a_three * 2000 / math.pi + 401); input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #angle and motor values
-    print_angle_shoulder = '%d' %angle_shoulder; print_angle_elbow = '%d' %(angle_elbow + 1); screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 21, 'Elbow angle:'); screen.addstr(1, 16, print_angle_shoulder, curses.color_pair(2)); screen.addstr(1, 34, print_angle_elbow, curses.color_pair(2)) #print angles of joints
+    print_angle_shoulder = '%d' %angle_shoulder; print_angle_elbow = '%d' %(angle_elbow + 0.01); screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 21, 'Elbow angle:'); screen.addstr(1, 16, print_angle_shoulder, curses.color_pair(2)); screen.addstr(1, 34, print_angle_elbow, curses.color_pair(2)) #print angles of joints
     if x <= 0: #so the varaibles can't go out of their range
         x = 0
     if y < -height_of_robot:
@@ -52,3 +52,4 @@ while key != ord('q'): #to end loop if 'q' is hit
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
         curses.endwin() #to reformat the terminal after the curses file closes
+
