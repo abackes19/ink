@@ -12,7 +12,7 @@ curses.start_color(); curses.use_default_colors(); curses.init_pair(1, curses.CO
 curses.noecho(); curses.halfdelay(5); screen = curses.initscr(); curses.noecho(); key = '' #to set up the curses file
 def ik(x, y): #function to test if the arm is in the range of possible motion
     d_three = (y ** 2 + x ** 2) ** 0.5
-    if d_three >= d_one + d_two or d_three <= d_one - d_two or (x < 0.1 and math.fabs(y) < 0.1):
+    if d_three >= d_one + d_two or d_three <= d_one - d_two or (x <= 0.1 and math.fabs(y) <= 0.1):
         return False
 while key != ord('q'): #to end loop if 'q' is hit
     d_arm = (y ** 2 + x ** 2) ** 0.5; a_three = math.acos((d_one ** 2 + d_two ** 2 - y ** 2 - x ** 2) / (2 * d_one * d_two)); a_two = math.asin((d_two * math.sin(a_three) / d_arm)); a_four = math.atan2(y , x) #calculate all angle values
