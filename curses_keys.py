@@ -20,14 +20,14 @@ while key != ord('q'): #to end loop if 'q' is hit
         a_shoulder = a_four + a_two
     else:
         a_shoulder = math.fabs(a_two - a_four)
-    angle_elbow = a_three * 180 / math.pi; angle_shoulder = a_shoulder * 180 / math.pi; input_elbow = int(fraction_elbow * a_three * 2000 / math.pi + 401); input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #angle and motor values
-    print_angle_shoulder = '%d' %angle_shoulder; print_angle_elbow = '%d' %(angle_elbow + 0.01); screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 21, 'Elbow angle:'); screen.addstr(1, 16, print_angle_shoulder, curses.color_pair(2)); screen.addstr(1, 34, print_angle_elbow, curses.color_pair(2)) #print angles of joints
     if x <= 0: #so the varaibles can't go out of their range
         x = 0
     if y < -height_of_robot:
         y = -height_of_robot
     key = screen.getch() #to reformat the screen every time something is hit
     screen.clear() #so the keys can be read
+    angle_elbow = a_three * 180 / math.pi; angle_shoulder = a_shoulder * 180 / math.pi; input_elbow = int(fraction_elbow * a_three * 2000 / math.pi + 401); input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #angle and motor values
+    print_angle_shoulder = '%d' %angle_shoulder; print_angle_elbow = '%d' %(angle_elbow + 0.01); screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 21, 'Elbow angle:'); screen.addstr(1, 16, print_angle_shoulder, curses.color_pair(2)); screen.addstr(1, 34, print_angle_elbow, curses.color_pair(2)) #print angles of joints
     screen.addstr(0, 0, 'Hit   to quit. Use  ,  ,  , and   to move the arm.'); screen.addstr(0, 4, 'Q', curses.color_pair(1)); screen.addstr(0, 19, 'W', curses.color_pair(2)); screen.addstr(0, 22, 'A', curses.color_pair(2)); screen.addstr(0, 25, 'S', curses.color_pair(2)); screen.addstr(0, 32, 'D', curses.color_pair(2)); screen.addstr(0, 51, 'Detected key:') #print key controls
     screen.addstr(2, 0, 'Point:'); screen.addstr(3, 0, '(   ,   )'); x_coordinate = '%d' %x; y_coordinate = '%d' %y; screen.addstr(3, 1, x_coordinate, curses.color_pair(3)); screen.addstr(3, 5, y_coordinate, curses.color_pair(3)) #to show the point the arm is at
     RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow) #to move the motors
