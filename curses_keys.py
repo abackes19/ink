@@ -1,7 +1,7 @@
 import curses; import math; import fractions; import setup; import RoboPiLib as RPL #the files needed for the math and key inputs
 height_of_robot = 8 #distance from floor to point (0, 0)
-d_one = 10 #distance from shoulder to elbow
-d_two = 10 #distance from elbow to wrist
+d_one = 14 #distance from shoulder to elbow
+d_two = 14 #distance from elbow to wrist
 s_pin = 0 #shoulder pin
 e_pin = 1 #elbow pin
 fraction_shoulder = fractions.Fraction(1, 1); fraction_elbow = fractions.Fraction(1, 1); x = 10; y = 10; d_one = d_one + 0.0000000001; d_two = d_two + 0.0000000001 #set up the kinimatics calculations
