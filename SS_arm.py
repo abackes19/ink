@@ -54,9 +54,11 @@ def ik(x, y):
     screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 20, str(a_elbow))
     screen.addstr(5, 0, "Shoulder angle:"); screen.addstr(5, 20, str(a_shoulder))
 
+ma_elbow = (a_elbow * 2000) + 400
+ma_shoulder = (a_shoulder * 2000) + 400
 
-RPL.servoWrite(e_pin, a_elbow)
-RPL.servoWrite(s_pin, a_shoulder)
+RPL.servoWrite(e_pin, ma_elbow)
+RPL.servoWrite(s_pin, ma_shoulder)
 
 while key != ord('q'):
     #so key presses can be read
@@ -112,7 +114,7 @@ while key != ord('q'):
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
             #to signify that there is an invalid input
             curses.beep()
-        RPL.servoWrite(e_pin, a_elbow)
-        RPL.servoWrite(s_pin, a_shoulder)
+        RPL.servoWrite(e_pin, ma_elbow)
+        RPL.servoWrite(s_pin, ma_shoulder)
         #to reformat the terminal after the curses file closes
         curses.endwin()
