@@ -2,18 +2,20 @@
 import curses
 import math
 import fractions
-import sys
-import time
+#import setup
+#import RoboPiLib as RPL
 
 print 'Enter x value'
 x = input('- ') # given x input- how we tell robot where to go
 print 'Enter y value'
 y = input('- ') # given y input- how we tell robot where to go
 
+e_pin = 0
+s_pin = 1
 
 #for defining the lengths of the arm
-d_one = 10
-d_two = 4
+d_one = 14
+d_two = 14
 
 sqd_one = math.pow(d_one, 2)
 sqd_two = math.pow(d_two, 2)
@@ -32,13 +34,12 @@ key = ''
 def ik(x, y):
     d_three = math.sqrt(math.pow(y, 2) + math.pow(x, 2)) # determining distance from shoulder to wrist
 
-
     o_reach = d_one + d_two
     if d_three > o_reach:
         return False
     i_reach = d_one - d_two
     if d_three < i_reach:
-        return False
+        return True
     else:
         a_three = math.acos((sqd_one + sqd_two - (math.pow(y, 2) + math.pow(x, 2))) / (2 * d_one * d_two))
         a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
@@ -54,7 +55,8 @@ def ik(x, y):
     screen.addstr(5, 0, "Shoulder angle:"); screen.addstr(5, 20, str(a_shoulder))
 
 
-ik(x,y)
+#RPL.servoWrite(e_pin, a_elbow)
+#RPL.servoWrite(s_pin, a_shoulder)
 
 while key != ord('q'):
     #so key presses can be read
@@ -62,9 +64,16 @@ while key != ord('q'):
     #to reformat the screen every time something is hit
     screen.clear()
     #to format and give instructions for the arm use
-    screen.addstr(0, 0, 'Hit   to quit. Use  ,  ,  , and   to move the arm.'); screen.addstr(0, 4, 'Q', curses.color_pair(1)); screen.addstr(0, 19, 'W', curses.color_pair(2)); screen.addstr(0, 22, 'A', curses.color_pair(2)); screen.addstr(0, 25, 'S', curses.color_pair(2)); screen.addstr(0, 32, 'D', curses.color_pair(2)); screen.addstr(0, 51, 'Detected key:')
+    screen.addstr(0, 0, 'Hit   to quit. Use  ,  ,  , and   to move the arm.');
+    screen.addstr(0, 4, 'Q', curses.color_pair(1));
+    screen.addstr(0, 19, 'W', curses.color_pair(2))
+    screen.addstr(0, 22, 'A', curses.color_pair(2))
+    screen.addstr(0, 25, 'S', curses.color_pair(2))
+    screen.addstr(0, 32, 'D', curses.color_pair(2))
+    screen.addstr(0, 51, 'Detected key:')
     screen.addstr(2, 0, str(x))
     screen.addstr(2, 10, str(y))
+    ik(x,y)
     if key != curses.ERR:
         if key == ord('w'):
             screen.addstr(0, 65, 'w key', curses.color_pair(2))
@@ -103,5 +112,7 @@ while key != ord('q'):
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
             #to signify that there is an invalid input
             curses.beep()
+#        RPL.servoWrite(e_pin, a_elbow)
+#        RPL.servoWrite(s_pin, a_shoulder)
         #to reformat the terminal after the curses file closes
         curses.endwin()
