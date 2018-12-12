@@ -2,8 +2,8 @@
 import curses
 import math
 import fractions
-#import setup
-#import RoboPiLib as RPL
+import setup
+import RoboPiLib as RPL
 
 print 'Enter x value'
 x = input('- ') # given x input- how we tell robot where to go
@@ -14,8 +14,8 @@ e_pin = 0
 s_pin = 1
 
 #for defining the lengths of the arm
-d_one = 14
-d_two = 14
+d_one = 10
+d_two = 10
 
 sqd_one = math.pow(d_one, 2)
 sqd_two = math.pow(d_two, 2)
@@ -47,16 +47,16 @@ def ik(x, y):
         a_elbow = a_three * 180/math.pi
         if y >= 0:
             a_shoulder = (a_four + a_two) * 180/math.pi
-        elif a_two >= math.fabs(a_four):
-            a_shoulder = (a_two - a_four) * 180/math.pi
-        elif a_two < math.fabs(a_four):
-            a_shoulder = -(math.fabs(a_four) - a_two) * 180/math.pi
+        elif a_two > math.fabs(a_four):
+            a_shoulder = (a_two - math.fabs(a_four)) * 180/math.pi
+        elif a_two <= math.fabs(a_four):
+            a_shoulder = (a_four + a_two) * 180/math.pi
     screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 20, str(a_elbow))
     screen.addstr(5, 0, "Shoulder angle:"); screen.addstr(5, 20, str(a_shoulder))
 
 
-#RPL.servoWrite(e_pin, a_elbow)
-#RPL.servoWrite(s_pin, a_shoulder)
+RPL.servoWrite(e_pin, a_elbow)
+RPL.servoWrite(s_pin, a_shoulder)
 
 while key != ord('q'):
     #so key presses can be read
@@ -112,7 +112,7 @@ while key != ord('q'):
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
             #to signify that there is an invalid input
             curses.beep()
-#        RPL.servoWrite(e_pin, a_elbow)
-#        RPL.servoWrite(s_pin, a_shoulder)
+        RPL.servoWrite(e_pin, a_elbow)
+        RPL.servoWrite(s_pin, a_shoulder)
         #to reformat the terminal after the curses file closes
         curses.endwin()
