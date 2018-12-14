@@ -112,3 +112,4 @@ while key != ord('q'):
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
         curses.endwin() #to reformat the terminal after the curses file closes
+
