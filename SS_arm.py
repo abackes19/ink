@@ -29,14 +29,9 @@ curses.noecho()
 curses.halfdelay(1)
 #to set key value to be read later
 key = ''
-#to end loop if 'q' is hit
-
-
-def ik(x, y):
-    d_three = math.sqrt(math.pow(y, 2) + math.pow(x, 2)) # determining distance from shoulder to wrist
-
-    o_reach = d_one + d_two
-    if d_three > o_reach:
+def test(x, y): #function to test if the arm is in the range of possible motion
+    d_three = (round(y, 1) ** 2 + round(x, 1) ** 2) ** 0.5
+    if d_three > d_one + d_two or d_three < d_one - d_two or (math.fabs(round(x, 1)) == 0.0 and math.fabs(round(y, 1)) == 0.0):
         return False
     i_reach = d_one - d_two
     if d_three < i_reach:
@@ -116,9 +111,4 @@ while key != ord('q'):
 
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
-            #to signify that there is an invalid input
-            curses.beep()
-        RPL.servoWrite(e_pin, ma_elbow)
-        RPL.servoWrite(s_pin, ma_shoulder)
-        #to reformat the terminal after the curses file closes
-        curses.endwin()
+        curses.endwin() #to reformat the terminal after the curses file closes
