@@ -116,7 +116,5 @@ while key != ord('q'):
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
             #to signify that there is an invalid input
             curses.beep()
-        RPL.servoWrite(e_pin, int(ma_elbow))
-        RPL.servoWrite(s_pin, int(ma_shoulder))
         #to reformat the terminal after the curses file closes
         curses.endwin()
