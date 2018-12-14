@@ -50,7 +50,7 @@ def ik(x, y):
     screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 20, str(a_elbow))
     screen.addstr(5, 0, "Shoulder angle:"); screen.addstr(5, 20, str(a_shoulder))
     ma_elbow = (a_elbow * 2000/ 180) + 400
-    ma_shoulder = 2000 - (a_shoulder * 2000/ 180) + 400
+    ma_shoulder = (a_shoulder * 2000/ 180) + 400
     screen.addstr(4, 35, "Motor output: "); screen.addstr(4, 50, str(ma_elbow))
     screen.addstr(5, 35, "Motor output: "); screen.addstr(5, 50, str(ma_shoulder))
     RPL.servoWrite(e_pin, int(ma_elbow))
