@@ -51,12 +51,8 @@ def test(x, y): #function to test if the arm is in the range of possible motion
     ma_shoulder = (a_shoulder * 2000/ 180) + 400
     screen.addstr(4, 35, "Motor output: "); screen.addstr(4, 50, str(ma_elbow))
     screen.addstr(5, 35, "Motor output: "); screen.addstr(5, 50, str(ma_shoulder))
-
-
-
-RPL.servoWrite(e_pin, ma_elbow)
-RPL.servoWrite(s_pin, ma_shoulder)
-
+    RPL.servoWrite(e_pin, ma_elbow)
+    RPL.servoWrite(s_pin, ma_shoulder)
 
 
 while key != ord('q'):
@@ -112,4 +108,3 @@ while key != ord('q'):
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
         curses.endwin() #to reformat the terminal after the curses file closes
-
