@@ -26,7 +26,7 @@ curses.start_color(); curses.use_default_colors(); curses.init_pair(1, curses.CO
 #so the only things that print are the returned values
 curses.noecho()
 #so the screen will update every tenth of a second (from 1 to 225)
-curses.halfdelay(1)
+curses.halfdelay(5)
 #to set key value to be read later
 key = ''
 def test(x, y): #function to test if the arm is in the range of possible motion
