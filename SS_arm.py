@@ -14,8 +14,8 @@ e_pin = 0
 s_pin = 1
 
 #for defining the lengths of the arm
-d_one = 14
-d_two = 14
+d_one = 10
+d_two = 10
 
 sqd_one = math.pow(d_one, 2)
 sqd_two = math.pow(d_two, 2)
@@ -26,12 +26,17 @@ curses.start_color(); curses.use_default_colors(); curses.init_pair(1, curses.CO
 #so the only things that print are the returned values
 curses.noecho()
 #so the screen will update every tenth of a second (from 1 to 225)
-curses.halfdelay(5)
+curses.halfdelay(1)
 #to set key value to be read later
 key = ''
-def test(x, y): #function to test if the arm is in the range of possible motion
-    d_three = (round(y, 1) ** 2 + round(x, 1) ** 2) ** 0.5
-    if d_three > d_one + d_two or d_three < d_one - d_two or (math.fabs(round(x, 1)) == 0.0 and math.fabs(round(y, 1)) == 0.0):
+#to end loop if 'q' is hit
+
+
+def ik(x, y):
+    d_three = math.sqrt(math.pow(y, 2) + math.pow(x, 2)) # determining distance from shoulder to wrist
+
+    o_reach = d_one + d_two
+    if d_three > o_reach:
         return False
     i_reach = d_one - d_two
     if d_three < i_reach:
@@ -41,10 +46,7 @@ def test(x, y): #function to test if the arm is in the range of possible motion
         a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
         a_four = math.atan2(y , x) # angle between 0 line and wrist
         a_elbow = a_three * 180/math.pi
-        if y >= 0:
-            a_shoulder = (a_four + a_two) * 180/math.pi
-        else:
-            a_shoulder = (a_four + a_two) * 180/math.pi
+        a_shoulder = (a_four + a_two) * 180/math.pi
     screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 20, str(a_elbow))
     screen.addstr(5, 0, "Shoulder angle:"); screen.addstr(5, 20, str(a_shoulder))
     ma_elbow = (a_elbow * 2000/ 180) + 400
@@ -53,6 +55,11 @@ def test(x, y): #function to test if the arm is in the range of possible motion
     screen.addstr(5, 35, "Motor output: "); screen.addstr(5, 50, str(ma_shoulder))
     RPL.servoWrite(e_pin, ma_elbow)
     RPL.servoWrite(s_pin, ma_shoulder)
+
+
+
+
+
 
 
 while key != ord('q'):
@@ -107,4 +114,9 @@ while key != ord('q'):
 
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
-        curses.endwin() #to reformat the terminal after the curses file closes
+            #to signify that there is an invalid input
+            curses.beep()
+        RPL.servoWrite(e_pin, ma_elbow)
+        RPL.servoWrite(s_pin, ma_shoulder)
+        #to reformat the terminal after the curses file closes
+        curses.endwin()
