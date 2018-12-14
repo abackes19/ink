@@ -31,6 +31,7 @@ curses.halfdelay(1)
 key = ''
 #to end loop if 'q' is hit
 
+
 def ik(x, y):
     d_three = math.sqrt(math.pow(y, 2) + math.pow(x, 2)) # determining distance from shoulder to wrist
 
@@ -53,12 +54,17 @@ def ik(x, y):
             a_shoulder = (a_four + a_two) * 180/math.pi
     screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 20, str(a_elbow))
     screen.addstr(5, 0, "Shoulder angle:"); screen.addstr(5, 20, str(a_shoulder))
+    ma_elbow = (a_elbow * 2000/ 180) + 400
+    ma_shoulder = (a_shoulder * 2000/ 180) + 400
+    screen.addstr(4, 35, "Motor output: "); screen.addstr(4, 50, str(ma_elbow))
+    screen.addstr(5, 35, "Motor output: "); screen.addstr(5, 50, str(ma_shoulder))
 
-ma_elbow = (a_elbow * 2000/ math.pi) + 400
-ma_shoulder = (a_shoulder * 2000/ math.pi) + 400
+
 
 RPL.servoWrite(e_pin, ma_elbow)
 RPL.servoWrite(s_pin, ma_shoulder)
+
+
 
 while key != ord('q'):
     #so key presses can be read
