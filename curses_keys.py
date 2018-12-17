@@ -32,7 +32,7 @@ while key != ord('q'): #to end loop if 'q' is hit
     input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #angle and motor value calculations
     RPL.servoWrite(s_pin, input_shoulder)
     RPL.servoWrite(e_pin, input_elbow) #to move the motors
-    screen.addstr(0, 0, 'Hit   to quit. Use the            to move and "X" and "Z" for speed:'); screen.addstr(0, 4, 'Q', curses.color_pair(1)); screen.addstr(0, 23, 'arrow keys', curses.color_pair(2)) #print code controls
+    screen.addstr(0, 0, 'Hit   to quit. Use the            to move and " " and " " for speed:'); screen.addstr(0, 4, 'Q', curses.color_pair(1)); screen.addstr(0, 23, 'arrow keys', curses.color_pair(2)); screen.addstr(0, 47, 'x', curses.color_pair(3)); screen.addstr(0, 55, 'z', curses.color_pair(3))
     screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 22, 'Elbow angle:')
     screen.addstr(2, 0, 'Point:'); screen.addstr(3, 0, '(    ,    )')
     screen.addstr(3, 1, str(round(x, 1)), curses.color_pair(3)); screen.addstr(3, 6, str(round(y, 1)), curses.color_pair(3)) #print point
