@@ -14,8 +14,8 @@ e_pin = 0
 s_pin = 1
 
 #for defining the lengths of the arm
-d_one = 10
-d_two = 10
+d_one = 14
+d_two = 14
 
 sqd_one = math.pow(d_one, 2)
 sqd_two = math.pow(d_two, 2)
@@ -47,6 +47,8 @@ def ik(x, y):
         a_four = math.atan2(y , x) # angle between 0 line and wrist
         a_elbow = a_three * 180/math.pi
         a_shoulder = (a_four + a_two) * 180/math.pi
+        if a_shoulder < 0:
+            return False
     screen.addstr(4, 0, "Elbow angle: "); screen.addstr(4, 20, str(a_elbow))
     screen.addstr(5, 0, "Shoulder angle:"); screen.addstr(5, 20, str(a_shoulder))
     ma_elbow = (a_elbow * 2000/ 180) + 400
@@ -116,7 +118,5 @@ while key != ord('q'):
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
             #to signify that there is an invalid input
             curses.beep()
-        RPL.servoWrite(e_pin, int(ma_elbow))
-        RPL.servoWrite(s_pin, int(ma_shoulder))
         #to reformat the terminal after the curses file closes
         curses.endwin()
