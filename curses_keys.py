@@ -64,11 +64,11 @@ while key != ord('q'): #to end loop if 'q' is hit
             if test(x, y) == False:
                 x = x + 0.1 * speed
         elif key == ord('x'):
-            speed = int(2 * speed)
-            if speed >= 8:
-                speed = 8
+            speed = int(speed + 1)
+            if speed >= 4:
+                speed = 4
         elif key == ord('z'):
-            speed = int(0.5 * speed)
+            speed = int(speed - 1)
             if speed <= 1:
                 speed = 1
         elif key == ord('q'):
