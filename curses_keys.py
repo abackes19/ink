@@ -39,7 +39,7 @@ while key != ord('q'): #to end loop if 'q' is hit
     screen.addstr(5, 0, 'Elbow motor value:'); screen.addstr(6, 0, 'Shoulder motor value:')
     screen.addstr(1, 16, str(round(angle_shoulder, 1)), curses.color_pair(2)); screen.addstr(1, 35, str(round(angle_elbow, 1)), curses.color_pair(2)) #print angles
     screen.addstr(5, 19, str(input_elbow)); screen.addstr(6, 22, str(input_shoulder)) #print all values
-    screen.addstr(4, 0, 'Speed:'); screen.addstr(4, 7, str(round(speed, 1)))
+    screen.addstr(4, 0, 'Speed:'); screen.addstr(4, 7, str(round(speed, 1),), curses.color_pair(3))
     if input_shoulder < 400 or input_elbow < 400:
         screen.addstr(7, 0, 'Point outside of motor domain', curses.color_pair(1))
     if key != curses.ERR: #to read if the user is pressing a key
