@@ -92,16 +92,16 @@ while key != ord('q'):
                 y = y + .5
             elif ik(x,y) == True:
                 y = y - .5
-        elif key == ord('a'):
-            screen.addstr(0, 65, 'a key', curses.color_pair(2))
+        elif key == ord('d'):
+            screen.addstr(0, 65, 'd key', curses.color_pair(2))
             x = x - .5
             ik(x,y)
             if ik(x,y) == False:
                 x = x + .5
             elif ik(x,y) == True:
                 x = x - .5
-        elif key == ord('d'):
-            screen.addstr(0, 65, 'd key', curses.color_pair(2))
+        elif key == ord('a'):
+            screen.addstr(0, 65, 'a key', curses.color_pair(2))
             x = x + .5
             ik(x,y)
             if ik(x,y) == False:
