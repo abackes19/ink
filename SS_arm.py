@@ -45,7 +45,7 @@ def ik(x, y):
         a_three = math.acos((sqd_one + sqd_two - (math.pow(y, 2) + math.pow(x, 2))) / (2 * d_one * d_two))
         a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
         a_four = math.atan2(y , x) # angle between 0 line and wrist
-        a_elbow = a_three * 180/math.pi
+        a_elbow = 180 - (a_three * 180/math.pi)
         a_shoulder = (a_four + a_two) * 180/math.pi
         if a_shoulder < 0:
             return False
@@ -92,16 +92,16 @@ while key != ord('q'):
                 y = y + .5
             elif ik(x,y) == True:
                 y = y - .5
-        elif key == ord('d'):
-            screen.addstr(0, 65, 'd key', curses.color_pair(2))
+        elif key == ord('a'):
+            screen.addstr(0, 65, 'a key', curses.color_pair(2))
             x = x - .5
             ik(x,y)
             if ik(x,y) == False:
                 x = x + .5
             elif ik(x,y) == True:
                 x = x - .5
-        elif key == ord('a'):
-            screen.addstr(0, 65, 'a key', curses.color_pair(2))
+        elif key == ord('d'):
+            screen.addstr(0, 65, 'd key', curses.color_pair(2))
             x = x + .5
             ik(x,y)
             if ik(x,y) == False:
