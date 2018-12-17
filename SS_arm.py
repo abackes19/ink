@@ -26,7 +26,7 @@ curses.start_color(); curses.use_default_colors(); curses.init_pair(1, curses.CO
 #so the only things that print are the returned values
 curses.noecho()
 #so the screen will update every tenth of a second (from 1 to 225)
-curses.halfdelay(1)
+curses.halfdelay(3)
 #to set key value to be read later
 key = ''
 #to end loop if 'q' is hit
@@ -59,11 +59,6 @@ def ik(x, y):
     RPL.servoWrite(s_pin, int(ma_shoulder))
 
 
-
-
-
-
-
 while key != ord('q'):
     #so key presses can be read
     key = screen.getch()
@@ -83,36 +78,36 @@ while key != ord('q'):
     if key != curses.ERR:
         if key == ord('w'):
             screen.addstr(0, 65, 'w key', curses.color_pair(2))
-            y = y + 0.2
+            y = y + .5
             ik(x,y)
             if ik(x,y) == False:
-                y = y - 0.2
+                y = y - .5
             elif ik(x,y) == True:
-                y = y + 0.2
+                y = y + .5
         elif key == ord('s'):
             screen.addstr(0, 65, 's key', curses.color_pair(2))
-            y = y - 0.2
+            y = y - .5
             ik(x,y)
             if ik(x,y) == False:
-                y = y + 0.2
+                y = y + .5
             elif ik(x,y) == True:
-                y = y - 0.2
+                y = y - .5
         elif key == ord('a'):
             screen.addstr(0, 65, 'a key', curses.color_pair(2))
-            x = x - 0.2
+            x = x - .5
             ik(x,y)
             if ik(x,y) == False:
-                x = x + 0.2
+                x = x + .5
             elif ik(x,y) == True:
-                x = x - 0.2
+                x = x - .5
         elif key == ord('d'):
             screen.addstr(0, 65, 'd key', curses.color_pair(2))
-            x = x + 0.2
+            x = x + .5
             ik(x,y)
             if ik(x,y) == False:
-                x = x - 0.2
+                x = x - .5
             elif ik(x,y) == True:
-                x = x + 0.2
+                x = x + .5
 
         else:
             screen.addstr(0, 65, 'invalid', curses.color_pair(1))
