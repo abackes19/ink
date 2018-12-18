@@ -2,12 +2,10 @@ import curses, math, fractions, setup, RoboPiLib as RPL
 height_of_robot = 6.0 #distance from floor to point (0, 0)
 d_one = 14.0 #distance from shoulder to elbow
 d_two = 14.0 #distance from elbow to wrist
-s_pin = 0 #shoulder pin
-e_pin = 1 #elbow pin
+s_pin = 0; e_pin = 1 #shoulder and elbow pin
 fraction_shoulder = fractions.Fraction(1, 1); fraction_elbow = fractions.Fraction(1, 1) #gear ratio inputs
 x = 10.0; y = 10.0
-screen = curses.initscr(); curses.noecho(); curses.halfdelay(1); screen.keypad(True); screen = curses.initscr() #set up curses file
-curses.start_color(); curses.use_default_colors()
+screen = curses.initscr(); curses.noecho(); curses.halfdelay(1); screen.keypad(True); screen = curses.initscr(); curses.start_color(); curses.use_default_colors()
 curses.init_pair(1, curses.COLOR_RED, -1); curses.init_pair(2, curses.COLOR_GREEN, -1); curses.init_pair(3, curses.COLOR_BLUE, -1)
 speed = 1; key = ''
 def test(x, y): #function to test if the arm is in the range of possible motion
@@ -31,22 +29,15 @@ while key != ord('q'): #to end loop if 'q' is hit
         a_shoulder = a_four + a_two
     else:
         a_elbow = 0; a_shoulder = math.pi
-    angle_elbow = a_elbow * 180 / math.pi
-    angle_shoulder = a_shoulder * 180 / math.pi
-    input_elbow = int(fraction_elbow * a_elbow * 2000 / math.pi + 400)
-    input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #angle and motor value calculations
-    RPL.servoWrite(s_pin, input_shoulder)
-    RPL.servoWrite(e_pin, input_elbow) #to move the motors
+    angle_elbow = a_elbow * 180 / math.pi; angle_shoulder = a_shoulder * 180 / math.pi
+    input_elbow = int(fraction_elbow * a_elbow * 2000 / math.pi + 400); input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #angle and motor value calculations
+    RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow) #to move the motors
     if test(x, y) == True:
         a_elbow = 0; a_shoulder = math.pi; x = 0; y = 0
     screen.addstr(0, 0, 'Hit   to quit. Use the            to move and   or   to alter speed:'); screen.addstr(0, 4, 'Q', curses.color_pair(1)); screen.addstr(0, 23, 'arrow keys', curses.color_pair(2)); screen.addstr(0, 46, 'Z', curses.color_pair(3)); screen.addstr(0, 51, 'X', curses.color_pair(3))
-    screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 22, 'Elbow angle:')
-    screen.addstr(2, 0, 'Point:'); screen.addstr(3, 0, '(    ,    )')
-    screen.addstr(3, 1, str(round(x, 1)), curses.color_pair(3)); screen.addstr(3, 6, str(round(y, 1)), curses.color_pair(3)) #print point
-    screen.addstr(5, 0, 'Elbow motor value:'); screen.addstr(6, 0, 'Shoulder motor value:')
-    screen.addstr(1, 16, str(round(angle_shoulder, 1)), curses.color_pair(2)); screen.addstr(1, 35, str(round(angle_elbow, 1)), curses.color_pair(2)) #print angles
-    screen.addstr(5, 19, str(input_elbow)); screen.addstr(6, 22, str(input_shoulder)) #print all values
-    screen.addstr(4, 0, 'Speed:'); screen.addstr(4, 7, str(round(speed, 1),), curses.color_pair(3))
+    screen.addstr(1, 0, 'Shoulder angle:'); screen.addstr(1, 22, 'Elbow angle:'); screen.addstr(4, 0, 'Speed:'); screen.addstr(4, 7, str(round(speed, 1),), curses.color_pair(3)); screen.addstr(2, 0, 'Point:'); screen.addstr(3, 0, '(    ,    )')
+    screen.addstr(3, 1, str(round(x, 1)), curses.color_pair(3)); screen.addstr(3, 6, str(round(y, 1)), curses.color_pair(3)); screen.addstr(5, 0, 'Elbow motor value:'); screen.addstr(6, 0, 'Shoulder motor value:')
+    screen.addstr(1, 16, str(round(angle_shoulder, 1)), curses.color_pair(2)); screen.addstr(1, 35, str(round(angle_elbow, 1)), curses.color_pair(2)); screen.addstr(5, 19, str(input_elbow)); screen.addstr(6, 22, str(input_shoulder)) #print all values
     if input_shoulder < 400 or input_elbow < 400:
         screen.addstr(7, 0, 'Domain error: point outside of motor range', curses.color_pair(1))
     if key != curses.ERR: #to read if the user is pressing a key
@@ -81,5 +72,4 @@ while key != ord('q'): #to end loop if 'q' is hit
         elif key == ord('q'):
             curses.endwin()
         else:
-            screen.addstr(0, 69, 'invalid', curses.color_pair(1))
-            curses.beep()
+            screen.addstr(0, 69, 'invalid', curses.color_pair(1)); curses.beep()
