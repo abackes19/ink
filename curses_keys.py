@@ -5,7 +5,7 @@ d_two = 14.0 #distance from elbow to wrist
 s_pin = 0; e_pin = 1 #shoulder and elbow pin
 fraction_shoulder = fractions.Fraction(1, 1); fraction_elbow = fractions.Fraction(1, 1) #gear ratio inputs
 x = 10.0; y = 10.0
-screen = curses.initscr(); curses.noecho(); curses.halfdelay(1); screen.keypad(True); screen = curses.initscr(); curses.start_color(); curses.use_default_colors()
+screen = curses.initscr(); curses.noecho(); curses.halfdelay(1); screen.keypad(True); curses.start_color(); curses.use_default_colors()
 curses.init_pair(1, curses.COLOR_RED, -1); curses.init_pair(2, curses.COLOR_GREEN, -1); curses.init_pair(3, curses.COLOR_BLUE, -1)
 speed = 1; key = ''
 def test(x, y): #function to test if the arm is in the range of possible motion
