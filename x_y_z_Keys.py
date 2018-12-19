@@ -34,19 +34,6 @@ while key != ord('z'): #to end loop if 'q' is hit
     key = screen.getch()
     screen.clear()
 
-    screen.addstr(0, 0, 'Hit   to quit. Use the   and   keys for verticle movement, the   and   keys to')
-    screen.addstr(1, 0, 'extend and retract the arm, and the   and   keys for horizontle movement. Use')
-    screen.addstr(2, 0, 'and   to speed up and slow down the robot. Key detected:')
-    screen.addstr(0, 4, 'Z', curses.color_pair(1))
-    screen.addstr(0, 23, 'W', curses.color_pair(3))
-    screen.addstr(0, 29, 'S', curses.color_pair(3))
-    screen.addstr(0, 63, 'Q', curses.color_pair(3))
-    screen.addstr(0, 69, 'E', curses.color_pair(3))
-    screen.addstr(1, 36, 'A', curses.color_pair(3))
-    screen.addstr(1, 42, 'D', curses.color_pair(3))
-    screen.addstr(1, 78, '1', curses.color_pair(2))
-    screen.addstr(2, 4, '2', curses.color_pair(2))
-
     if x <= 0.0: #so the varaibles can't go out of their range
         x = 0.0
 
@@ -71,6 +58,19 @@ while key != ord('z'): #to end loop if 'q' is hit
         x = 0.0
         y = 0.0
         z = 0.0
+        
+    screen.addstr(0, 0, 'Hit   to quit. Use the   and   keys for verticle movement, the   and   keys to')
+    screen.addstr(1, 0, 'extend and retract the arm, and the   and   keys for horizontle movement. Use')
+    screen.addstr(2, 0, 'and   to speed up and slow down the robot. Key detected:')
+    screen.addstr(0, 4, 'Z', curses.color_pair(1))
+    screen.addstr(0, 23, 'W', curses.color_pair(3))
+    screen.addstr(0, 29, 'S', curses.color_pair(3))
+    screen.addstr(0, 63, 'Q', curses.color_pair(3))
+    screen.addstr(0, 69, 'E', curses.color_pair(3))
+    screen.addstr(1, 36, 'A', curses.color_pair(3))
+    screen.addstr(1, 42, 'D', curses.color_pair(3))
+    screen.addstr(1, 78, '1', curses.color_pair(2))
+    screen.addstr(2, 4, '2', curses.color_pair(2))
 
     screen.addstr(4, 0, 'Shoulder angle:') #to print shoulder angle value
     angle_shoulder = a_shoulder * 180 / math.pi
