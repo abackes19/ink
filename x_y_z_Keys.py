@@ -1,8 +1,12 @@
-import curses, math #to pull all the files needed to run the code
+import curses, math, setup, RoboPiLib as RPL #to pull all the files needed to run the code
 
 d_one = 14.0 #distance from shoulder to elbow
 d_two = 14.0 #distance from elbow to wrist
 height_of_robot = 6.0 #distance from floor to point (0, 0)
+
+el_pin = 0 #set pin numbers
+sh_pin = 1
+sw_pin = 2
 
 screen = curses.initscr() #setting up the curses file
 curses.halfdelay(1)
@@ -92,17 +96,20 @@ while key != ord('q'): #to end loop if 'q' is hit
     screen.addstr(7, 0, 'Speed:') #to print speed value
     screen.addstr(7, 7, str(round(speed, 1),), curses.color_pair(2))
 
-    screen.addstr(8, 0, 'Elbow motor value:') #to print elbow motor value
+    screen.addstr(8, 0, 'Elbow motor value:') #to give elbow motor value
     input_elbow = int(a_elbow * 2000 / math.pi + 400)
     screen.addstr(8, 19, str(input_elbow))
+    RPL.servoWrite(el_pin, input_elbow)
 
-    screen.addstr(9, 0, 'Shoulder motor value:') #to print shoulder motor value
+    screen.addstr(9, 0, 'Shoulder motor value:') #to give shoulder motor value
     input_shoulder = int(a_shoulder * 2000 / math.pi + 400)
     screen.addstr(9, 22, str(input_shoulder))
+    RPL.servoWrite(sh_pin, input_shoulder)
 
-    screen.addstr(10, 0, 'Swivel motor value:') #to print swivel motor value
+    screen.addstr(10, 0, 'Swivel motor value:') #to give swivel motor value
     input_swivel = int(a_swivel * 2000 / math.pi + 400)
     screen.addstr(10, 20, str(input_swivel))
+    RPL.servoWrite(sw_pin, input_swivel)
 
     if input_shoulder < 400 or input_elbow < 400 or input_swivel < 400: #to inform users if the point is reachable with the motors
         screen.addstr(11, 0, 'Domain error: point outside of motor range', curses.color_pair(1))
