@@ -10,7 +10,7 @@ curses.init_pair(1, curses.COLOR_RED, -1); curses.init_pair(2, curses.COLOR_GREE
 speed = 1; key = ''
 def test(x, y): #function to test if the arm is in the range of possible motion
     d_three = (round(y, 1) ** 2 + round(x, 1) ** 2) ** 0.5
-    if math.fabs(round(x, 1)) == 0.0 and math.fabs(round(y, 1)) == 0.0:
+    if round(x, 1) == 0.0 and round(y, 1) == 0.0:
         return True
     if d_three > d_one + d_two or d_three < d_one - d_two:
         return False
