@@ -30,22 +30,22 @@ def test(x, y, z): #function to test if the arm is in the range of possible moti
     if d_three > d_one + d_two or d_three < d_one - d_two:
         return False
 
-while key != ord('q'): #to end loop if 'q' is hit
+while key != ord('z'): #to end loop if 'q' is hit
     key = screen.getch()
     screen.clear()
 
     screen.addstr(0, 0, 'Hit   to quit. Use the   and   keys for verticle movement, the   and   keys to')
     screen.addstr(1, 0, 'extend and retract the arm, and the   and   keys for horizontle movement. Use')
     screen.addstr(2, 0, 'and   to speed up and slow down the robot. Key detected:')
-    screen.addstr(0, 4, 'Q', curses.color_pair(1))
+    screen.addstr(0, 4, 'Z', curses.color_pair(1))
     screen.addstr(0, 23, 'W', curses.color_pair(3))
     screen.addstr(0, 29, 'S', curses.color_pair(3))
-    screen.addstr(0, 63, 'Z', curses.color_pair(3))
-    screen.addstr(0, 69, 'X', curses.color_pair(3))
+    screen.addstr(0, 63, 'Q', curses.color_pair(3))
+    screen.addstr(0, 69, 'E', curses.color_pair(3))
     screen.addstr(1, 36, 'A', curses.color_pair(3))
     screen.addstr(1, 42, 'D', curses.color_pair(3))
-    screen.addstr(1, 78, 'N', curses.color_pair(2))
-    screen.addstr(2, 4, 'M', curses.color_pair(2))
+    screen.addstr(1, 78, '1', curses.color_pair(2))
+    screen.addstr(2, 4, '2', curses.color_pair(2))
 
     if x <= 0.0: #so the varaibles can't go out of their range
         x = 0.0
@@ -126,13 +126,13 @@ while key != ord('q'): #to end loop if 'q' is hit
             y = y - 0.1 * speed
             if test(x, y, z) == False:
                 y = y + 0.1 * speed
-        elif key == ord('x'): #to increase x value
-            screen.addstr(2, 57, 'x key', curses.color_pair(2))
+        elif key == ord('e'): #to increase x value
+            screen.addstr(2, 57, 'e key', curses.color_pair(2))
             x = x + 0.1 * speed
             if test(x, y, z) == False:
                 x = x - 0.1 * speed
-        elif key == ord('z'): #to decrease x value
-            screen.addstr(2, 57, 'z key', curses.color_pair(2))
+        elif key == ord('q'): #to decrease x value
+            screen.addstr(2, 57, 'q key', curses.color_pair(2))
             x = x - 0.1 * speed
             if test(x, y, z) == False:
                 x = x + 0.1 * speed
@@ -146,19 +146,18 @@ while key != ord('q'): #to end loop if 'q' is hit
             z = z - 0.1 * speed
             if test(x, y, z) == False:
                 z = z + 0.1 * speed
-        elif key == ord('m'): #to increase speed
-            screen.addstr(2, 57, 'm key', curses.color_pair(2))
+        elif key == ord('2'): #to increase speed
+            screen.addstr(2, 57, '2 key', curses.color_pair(2))
             speed = int(speed + 1)
             if speed >= 4:
                 speed = 4
-        elif key == ord('n'): #to decrease speed
-            screen.addstr(2, 57, 'n key', curses.color_pair(2))
+        elif key == ord('1'): #to decrease speed
+            screen.addstr(2, 57, '1 key', curses.color_pair(2))
             speed = int(speed - 1)
             if speed <= 1:
                 speed = 1
-        elif key == ord('q'): #to end the program and reformat the terminal
+        elif key == ord('z'): #to end the program and reformat the terminal
             curses.endwin()
         else: #so if an invalid key is hit, the user is alerted
             screen.addstr(2, 57, 'invalid', curses.color_pair(1))
             curses.beep()
-
