@@ -24,9 +24,7 @@ while key != ord('q'): #to end loop if 'q' is hit
         y = 0.0
     if test(x, y) != True:
         a_elbow = math.acos((d_one ** 2 + d_two ** 2 - round(y, 1) ** 2 - round(x, 1) ** 2) / (2 * d_one * d_two))
-        a_two = math.asin((d_two * math.sin(a_elbow) / (round(y, 1) ** 2 + round(x, 1) ** 2) ** 0.5))
-        a_four = math.atan2(round(y, 1) , round(x, 1)) #calculate all angle values
-        a_shoulder = a_four + a_two
+        a_shoulder = math.asin((d_two * math.sin(a_elbow) / (round(y, 1) ** 2 + round(x, 1) ** 2) ** 0.5)) + math.atan2(round(y, 1) , round(x, 1)) #calculate all angle values
     else:
         a_elbow = 0; a_shoulder = math.pi
     angle_elbow = a_elbow * 180 / math.pi; angle_shoulder = a_shoulder * 180 / math.pi
