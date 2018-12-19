@@ -64,10 +64,10 @@ while key != ord('q'): #to end loop if 'q' is hit
     screen.addstr(0, 4, 'Q', curses.color_pair(1))
     screen.addstr(0, 23, 'W', curses.color_pair(3))
     screen.addstr(0, 29, 'S', curses.color_pair(3))
-    screen.addstr(0, 63, 'A', curses.color_pair(3))
-    screen.addstr(0, 69, 'D', curses.color_pair(3))
-    screen.addstr(1, 36, 'Z', curses.color_pair(3))
-    screen.addstr(1, 42, 'X', curses.color_pair(3))
+    screen.addstr(0, 63, 'Z', curses.color_pair(3))
+    screen.addstr(0, 69, 'X', curses.color_pair(3))
+    screen.addstr(1, 36, 'A', curses.color_pair(3))
+    screen.addstr(1, 42, 'D', curses.color_pair(3))
     screen.addstr(1, 78, 'N', curses.color_pair(2))
     screen.addstr(2, 4, 'M', curses.color_pair(2))
 
@@ -125,23 +125,23 @@ while key != ord('q'): #to end loop if 'q' is hit
             y = y - 0.1 * speed
             if test(x, y, z) == False:
                 y = y + 0.1 * speed
-        elif key == ord('d'): #to increase x value
-            screen.addstr(2, 57, 'd key', curses.color_pair(2))
+        elif key == ord('x'): #to increase x value
+            screen.addstr(2, 57, 'x key', curses.color_pair(2))
             x = x + 0.1 * speed
             if test(x, y, z) == False:
                 x = x - 0.1 * speed
-        elif key == ord('a'): #to decrease x value
-            screen.addstr(2, 57, 'a key', curses.color_pair(2))
+        elif key == ord('z'): #to decrease x value
+            screen.addstr(2, 57, 'z key', curses.color_pair(2))
             x = x - 0.1 * speed
             if test(x, y, z) == False:
                 x = x + 0.1 * speed
-        elif key == ord('x'): #to increase z value
-            screen.addstr(2, 57, 'x key', curses.color_pair(2))
+        elif key == ord('d'): #to increase z value
+            screen.addstr(2, 57, 'd key', curses.color_pair(2))
             z = z + 0.1 * speed
             if test(x, y, z) == False:
                 z = z - 0.1 * speed
-        elif key == ord('z'): #to decrease z value
-            screen.addstr(2, 57, 'z key', curses.color_pair(2))
+        elif key == ord('a'): #to decrease z value
+            screen.addstr(2, 57, 'a key', curses.color_pair(2))
             z = z - 0.1 * speed
             if test(x, y, z) == False:
                 z = z + 0.1 * speed
@@ -160,3 +160,4 @@ while key != ord('q'): #to end loop if 'q' is hit
         else: #so if an invalid key is hit, the user is alerted
             screen.addstr(2, 57, 'invalid', curses.color_pair(1))
             curses.beep()
+
