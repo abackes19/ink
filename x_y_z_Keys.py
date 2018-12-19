@@ -54,7 +54,6 @@ while key != ord('z'): #to end loop if 'q' is hit
         a_swivel = math.atan2(round(z, 2), round(x, 2)) + math.pi / 2
     else: #to give the motor values at (0, 0, 0)
         a_elbow = 0
-        a_shoulder = math.pi
         x = 0.0
         y = 0.0
         z = 0.0
