@@ -46,7 +46,7 @@ while key != ord('q'): #to end loop if 'q' is hit
     if test(x, y, z) != True: #to calculate all angle values for motors except at point (0, 0, 0)
         a_elbow = math.acos((d_one ** 2 + d_two ** 2 - round(x, 2) ** 2 - round(y, 2) ** 2 - round(z, 2) ** 2) / (2 * d_one * d_two))
         a_shoulder = math.asin((d_two * math.sin(a_elbow) / (round(y, 2) ** 2 + round(x, 2) ** 2 + round(z, 2) ** 2) ** 0.5)) + math.atan2(round(y, 2), (round(x, 2) ** 2 + round(z, 2) ** 2) ** 0.5)
-        a_swivel = math.pi / 2 + math.atan2(round(z, 2), round(x, 2))
+        a_swivel = math.atan2(round(z, 2), round(x, 2)) + math.pi / 2
     else: #to give the motor values at (0, 0, 0)
         a_elbow = 0
         a_shoulder = math.pi
