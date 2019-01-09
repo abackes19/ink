@@ -21,9 +21,9 @@ while True:
     print "Hit 'y' or 'x' to run motor. Hit 'q' to quit."
     run = raw_input('- ')
     if run == 'y':
-        shoulder(True, 13, 1000)
+        shoulder(True, 26, 1000)
     elif run == 'x':
-        shoulder(False, 13, 1000)
+        shoulder(False, 26, 1000)
     elif run == 'q':
       break
     continue
