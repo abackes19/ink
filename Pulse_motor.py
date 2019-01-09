@@ -1,4 +1,4 @@
-import RoboPiLib_pwm as RPL, time #to pull all the files needed to run the code
+import RoboPiLib as RPL, time #to pull all the files needed to run the code
 RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
 
 RPL.pinMode(0, RPL.PWM) #set shoulder_pul pin as a pulse-width modulation output
