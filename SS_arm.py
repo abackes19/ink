@@ -45,7 +45,7 @@ def ik(x, y):
         a_three = math.acos((sqd_one + sqd_two - (math.pow(y, 2) + math.pow(x, 2))) / (2 * d_one * d_two))
         a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
         a_four = math.atan2(y , x) # angle between 0 line and wrist
-        a_elbow = 180 - (a_three * 180/math.pi)
+        a_elbow = (a_three * 180/math.pi)
         a_shoulder = (a_four + a_two) * 180/math.pi
         if a_shoulder < 0:
             return False
