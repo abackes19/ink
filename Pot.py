@@ -1,11 +1,12 @@
-import RoboPiLib_pwm as RPL
-import time
-RPL.RoboPiInit("/dev/ttyAMA0", 115200)
-
-RPL.pinMode(0, RPL.PWM)
-RPL.pinMode(1, RPL.OUTPUT)
-
+import RoboPiLib as RPL
+import setup
+from time import sleep
+spin = 0  #servo pin
+ 
+ppin = 7  #potentiomenter pin 
 while True:
-    print 'Potentiometer value: %d\n', analogRead(1)
-    time.sleep(1)
-    continue
+  p1 = RPL.analogRead(ppin) 
+  s1 = p1 * 26.6
+  RPL.servoWrite(spin,int(s1)) 
+  print("p = ", int(p1), "  S = ",int(s1) )
+  sleep(0.05)
