@@ -10,4 +10,4 @@ while True:
   a1 = p1 * 145 / 512
   RPL.servoWrite(apin,int(a1))
   print("p = ", int(p1), "  a = ",int(a1 - 55) )
-  sleep(1)
+  sleep(0.05)
