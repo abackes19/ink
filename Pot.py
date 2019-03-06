@@ -8,6 +8,6 @@ ppin = 7  #potentiomenter pin
 while True:
   p1 = RPL.analogRead(ppin)
   a1 = p1 * 580 / 77
-  RPL.servoWrite(spin,int(s1))
+  RPL.servoWrite(spin,int(a1))
   print("p = ", int(p1), "  a = ",int(a1 - 55) )
   sleep(1)
