@@ -5,7 +5,11 @@ import pygame
 import math
 import fractions
 import time
+import os
+
 pygame.init()
+
+os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 white = (255,255,255)
 black = (0,0,0)
