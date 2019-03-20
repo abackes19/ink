@@ -5,8 +5,8 @@ MOTOR.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
 
 a_shoulder = 200
 
-MOTOR.pinMode(0, RPL.PWM) #set shoulder_pul pin as a pulse-width modulation output
-MOTOR.pinMode(1, RPL.OUTPUT) #set shoulder_dir pin to an output and write 1 to it
+MOTOR.pinMode(0, MOTOR.PWM) #set shoulder_pul pin as a pulse-width modulation output
+MOTOR.pinMode(1, MOTOR.OUTPUT) #set shoulder_dir pin to an output and write 1 to it
 
 ppin = 7
 pot_1 = POT.analogRead(ppin) * 145 / 512 - 55
