@@ -1,5 +1,4 @@
 import RoboPiLib_pwm as RPL #to pull all the files needed to run the motors
-import RoboPiLib as POT #to pull all files needed to read the potentiometers
 from time import sleep
 RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
 
@@ -9,7 +8,7 @@ RPL.pinMode(0, RPL.PWM) #set shoulder_pul pin as a pulse-width modulation output
 RPL.pinMode(1, RPL.OUTPUT) #set shoulder_dir pin to an output and write 1 to it
 
 ppin = 7
-p1 = POT.analogRead(ppin) * 145 / 512 - 55
+p1 = RPL.analogRead(ppin) * 145 / 512 - 55
 
 print("p = ", int(p1))
 sleep(0.1)
