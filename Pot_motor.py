@@ -19,10 +19,12 @@ while True:
     p1 = RPL.analogRead(ppin) * 145 / 512 - 55
     print("p = ", int(p1))
     RPL.pwmWrite(0, 0, 1)
-    while abs(round(p1, 0) - round(a_shoulder, 0)) > 5: #so there is a margin of error of max 3 degrees
+    while abs(p1 - a_shoulder) > 5: #so there is a margin of error of max 3 degrees
         if p1 > a_shoulder:
             RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
-        else:
+        if pl < a shoulder:
             RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
         RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2) #RPL.pwmWrite(pin value, number of on pulses, total pulses duration)
         p1 = RPL.analogRead(ppin) * 145 / 512 - 55
+        if abs(p1 - a_shoulder) > 5:
+            break
