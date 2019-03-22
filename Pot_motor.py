@@ -17,6 +17,7 @@ RPL.pinMode(shoulder_dir, RPL.OUTPUT) #set shoulder_dir pin to an output and wri
 RPL.pwmWrite(shoulder_pul, 0, 1)
 
 ppin = 7
+
 while True:
     p1 = RPL.analogRead(ppin) * 145 / 512 - 55
     print("p = ", int(p1))
