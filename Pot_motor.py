@@ -27,6 +27,6 @@ while True:
             RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
         RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2) #RPL.pwmWrite(pin value, number of on pulses, total pulses duration)
         p1 = RPL.analogRead(ppin) * 145 / 512 - 55
-        if abs(p1 - a_shoulder) > 5:
+        if abs(p1 - a_shoulder) < 5:
             RPL.pwmWrite(shoulder_pul, 0, 1)
             break
