@@ -14,11 +14,12 @@ print shoulder_dir, " shoulder_dir"
 RPL.pinMode(shoulder_pul, RPL.PWM) #set shoulder_pul pin as a pulse-width modulation output
 RPL.pinMode(shoulder_dir, RPL.OUTPUT) #set shoulder_dir pin to an output and write 1 to it
 
+RPL.pwmWrite(shoulder_pul, 0, 1)
+
 ppin = 7
 while True:
     p1 = RPL.analogRead(ppin) * 145 / 512 - 55
     print("p = ", int(p1))
-    RPL.pwmWrite(0, 0, 1)
     while abs(p1 - a_shoulder) > 5: #so there is a margin of error of max 3 degrees
         if p1 > a_shoulder:
             RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
@@ -27,4 +28,5 @@ while True:
         RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2) #RPL.pwmWrite(pin value, number of on pulses, total pulses duration)
         p1 = RPL.analogRead(ppin) * 145 / 512 - 55
         if abs(p1 - a_shoulder) > 5:
+            RPL.pwmWrite(shoulder_pul, 0, 1)
             break
