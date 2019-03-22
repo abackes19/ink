@@ -22,7 +22,7 @@ while True:
     while abs(p1 - a_shoulder) > 5: #so there is a margin of error of max 3 degrees
         if p1 > a_shoulder:
             RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
-        if pl < a shoulder:
+        if p1 < a_shoulder:
             RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
         RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2) #RPL.pwmWrite(pin value, number of on pulses, total pulses duration)
         p1 = RPL.analogRead(ppin) * 145 / 512 - 55
