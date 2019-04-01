@@ -27,5 +27,5 @@ while True:
     if p1 < a_shoulder and error > 5:
         RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
         RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
-    else:
+    if error < 5:
         RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
