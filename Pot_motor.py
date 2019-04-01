@@ -1,7 +1,7 @@
 import RoboPiLib_pwm as RPL #to pull all the files needed to run the motors
 RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
 
-a_shoulder = 200
+a_shoulder = input('- ')
 motor_speed = 500
 
 shoulder_pul = 1
