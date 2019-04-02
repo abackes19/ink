@@ -1,11 +1,23 @@
 # using arrow keys!
 # notes: can use continuously, but use one key at a time in an orderly fashion
 
+<<<<<<< HEAD
 import pygame, math, fractions, time
 from pygame.locals import *
 
 pygame.init()
 
+=======
+import pygame
+import math
+import fractions
+import time
+import os
+
+pygame.init()
+
+os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
+>>>>>>> 6137186af013cbf4dc673a3f9be8561fa6c0948a
 
 white = (255,255,255)
 black = (0,0,0)

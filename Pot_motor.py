@@ -1,29 +1,31 @@
-import RoboPiLib_pwm as MOTOR #to pull all the files needed to run the motors
-import RoboPiLib as POT #to pull all files needed to read the potentiometers
-from time import sleep
-MOTOR.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
+import RoboPiLib_pwm as RPL #to pull all the files needed to run the motors
+RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
 
-a_shoulder = 200
+a_shoulder = input('- ')
+motor_speed = 500
 
-MOTOR.pinMode(0, RPL.PWM) #set shoulder_pul pin as a pulse-width modulation output
-MOTOR.pinMode(1, RPL.OUTPUT) #set shoulder_dir pin to an output and write 1 to it
-
+shoulder_pul = 1
+shoulder_dir = 2
 ppin = 7
-pot_1 = POT.analogRead(ppin) * 145 / 512 - 55
 
-print(pot_1)
-sleep(0.1)
+print shoulder_pul, " shoulder_pul"
+print shoulder_dir, " shoulder_dir"
+print ppin, " ppin"
 
-def stop(): #stop the motors
-    MOTOR.pwmWrite(0, 0, 1)
+RPL.pinMode(shoulder_pul, RPL.PWM) #set shoulder_pul pin as a pulse-width modulation output
+RPL.pinMode(shoulder_dir, RPL.OUTPUT) #set shoulder_dir pin to an output and write 1 to it
 
-def shoulder(): #to run the motors
-    motor_speed = 500
-    if abs(round(pot_1, 0) - round(a_shoulder, 0)) > 3: #so there is a margin of error of max 3 degrees
-        if pot_1 > a_shoulder:
-            MOTOR.digitalWrite(1, 1) #turn clockwise
-        else:
-            MOTOR.digitalWrite(1, 0) #turn counterclockwise
-        MOTOR.pwmWrite(0, motor_speed, motor_speed * 2) #RPL.pwmWrite(pin value, number of on pulses, total pulses duration)
-    else:
-        stop()
+RPL.pwmWrite(shoulder_pul, 0, 1)
+
+while True:
+    p1 = RPL.analogRead(ppin) * 145 / 512 - 55
+    print "p1: ", p1
+    error = abs(p1 - a_shoulder) #how many degrees off the intended value the arm is
+    if p1 > a_shoulder and error > 5:
+        RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
+        RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
+    if p1 < a_shoulder and error > 5:
+        RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
+        RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
+    if error < 5:
+        RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
