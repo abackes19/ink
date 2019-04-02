@@ -2,6 +2,7 @@
 # notes: can use continuously, but use one key at a time in an orderly fashion
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import pygame, math, fractions, time
 from pygame.locals import *
 
@@ -18,6 +19,13 @@ pygame.init()
 
 os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 >>>>>>> 6137186af013cbf4dc673a3f9be8561fa6c0948a
+=======
+import pygame, math, fractions, time
+from pygame.locals import *
+
+pygame.init()
+
+>>>>>>> 259a93156e8df48ac59c418fbb650e3de849ddde
 
 white = (255,255,255)
 black = (0,0,0)
@@ -133,3 +141,4 @@ while not done:
     pygame.draw.rect(gameDisplay, grey, [0, (originy + 24), display_width, display_width])
 #please work rectangle
 pygame.quit()
+
