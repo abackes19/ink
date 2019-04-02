@@ -1,23 +1,19 @@
 # using arrow keys!
 # notes: can use continuously, but use one key at a time in an orderly fashion
 
-import pygame
-import math
-import fractions
-import time
-import os
+import pygame, math, fractions, time
+from pygame.locals import *
 
 pygame.init()
 
-os.environ['SDL_VIDEO_WINDOW_POS'] = 'center'
 
 white = (255,255,255)
 black = (0,0,0)
 red = (255,0,0)
-green = (0,255,0)
-blue = (137, 169, 244)
-purple = (232, 13, 119)
-grey = (99,99,99)
+green = (39, 147, 52)
+blue = (102, 136, 214)
+pink = (232, 13, 119)
+grey = (203, 206, 214)
 
 display_width = 800
 display_height = 600
@@ -94,7 +90,6 @@ def pos(x, y):
     return x_change, y_change
 
 while not done:
-    xo = x; yo = y
     clock.tick(60)
     # determine where want to be
     for event in pygame.event.get(): # User did something
@@ -111,11 +106,12 @@ while not done:
     if ik(x, y) != False:
         # determine elbow point
         xe, ye = ik(x,y)
+        xo = x; yo = y
         # draw line
-        pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [x, y]], 5)
+        pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
     else: # out of range so stay
-        pygame.draw.lines(gameDisplay, purple, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
-
+        pygame.draw.lines(gameDisplay, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
+        pygame.draw.circle(gameDisplay, pink, (x, y), (5), 0)
 
 # Be IDLE friendly
     pygame.display.update()
@@ -125,3 +121,4 @@ while not done:
     pygame.draw.rect(gameDisplay, grey, [0, (originy + 24), display_width, display_width])
 #please work rectangle
 pygame.quit()
+
