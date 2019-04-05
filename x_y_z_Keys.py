@@ -29,10 +29,10 @@ print 'shoulder_pul', shoulder_pul
 print 'shoulder_dir', shoulder_dir
 print 'elbow_pul', elbow_pul
 print 'elbow_dir', elbow_dir
-print 'swivel_continuous: ', swivel_continuous
-print 'ppin_shoulder: ', ppin_shoulder
-print 'ppin_elbow: ', ppin_elbow
-print 'ppin_swivel: ', ppin_swivel
+print 'swivel_continuous', swivel_continuous
+print 'ppin_shoulder', ppin_shoulder
+print 'ppin_elbow', ppin_elbow
+print 'ppin_swivel', ppin_swivel
 
 RPL.pinMode(shoulder_pul, RPL.PWM) #set shoulder_pul pin as a pulse-width modulation output
 RPL.pinMode(shoulder_dir, RPL.OUTPUT) #set shoulder_dir pin to an output and write 1 to it
