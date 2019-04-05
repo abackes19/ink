@@ -52,8 +52,6 @@ def getch(): #detect key presses
 
 while True:
 
-    key = getch() #read when a key is presses
-
     if z <= 0.0: #limit the arm to the front side of the robot
         z = 0.0
 
@@ -63,6 +61,45 @@ while True:
         a_swivel = math.atan2(round(x, 2), round(z, 2)) + math.pi / 2
     else: #give motor values at (0, 0, 0)
         a_elbow = x = y = z = 0.0
+
+    motor_speed = 500
+
+    max_error = 2
+
+    pot_shoulder = RPL.analogRead(ppin_shoulder) * 29 * math.pi / 18432
+    error_s = abs(pot_shoulder - a_shoulder) #how many degrees off the intended value the arm is
+    calculated_error_s = error_s / d_one
+    if pot_shoulder > a_shoulder and calculated_error_s > max_error:
+        RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
+        RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
+    if pot_shoulder < a_shoulder and calculated_error_s > max_error:
+        RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
+        RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
+    if calculated_error_s < max_error:
+        RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
+
+    pot_elbow = RPL.analogRead(ppin_elbow) * 29 * math.pi / 18432
+    error_e = abs(pot_elbow - a_elbow) #how many degrees off the intended value the arm is
+    calculated_error_e = error_e / d_two
+    if pot_elbow > a_elbow and calculated_error_e > max_error:
+        RPL.digitalWrite(elbow_dir, 1) #turn clockwise
+        RPL.pwmWrite(elbow_pul, motor_speed, motor_speed * 2)
+    if pot_elbow < a_elbow and calculated_error_e > max_error:
+        RPL.digitalWrite(elbow_dir, 0) #turn counterclockwise
+        RPL.pwmWrite(elbow_pul, motor_speed, motor_speed * 2)
+    if calculated_error_e < max_error:
+        RPL.pwmWrite(elbow_pul, 0, motor_speed * 2)
+
+    pot_swivel = RPL.analogRead(ppin_swivel) * 29 * math.pi / 18432
+    error_sw = abs(pot_swivel - a_swivel)
+    if pot_swivel > a_swivel and error_sw > max_error:
+        RPL.servoWrite(swivel_continuous, 2000)
+    if pot_swivel < a_swivel and error_sw > max_error:
+        RPL.servoWrite(swivel_continuous, 1000)
+    if error_sw < max_error:
+        RPL.servoWrite(swivel_continuous, 0)
+
+    key = getch() #read when a key is presses
 
     speed = 1 #set starting step value
 
@@ -103,40 +140,3 @@ while True:
         RPL.pwmWrite(elbow_pul, 0, 1)
         RPL.servoWrite(swivel_continuous, 0)
         exit(0)
-
-    motor_speed = 500
-
-    max_error = 2
-
-    pot_shoulder = RPL.analogRead(ppin_shoulder) * 29 * math.pi / 18432
-    error_s = abs(pot_shoulder - a_shoulder) #how many degrees off the intended value the arm is
-    calculated_error_s = error_s / d_one
-    if pot_shoulder > a_shoulder and calculated_error_s > max_error:
-        RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
-        RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
-    if pot_shoulder < a_shoulder and calculated_error_s > max_error:
-        RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
-        RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
-    if calculated_error_s < max_error:
-        RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
-
-    pot_elbow = RPL.analogRead(ppin_elbow) * 29 * math.pi / 18432
-    error_e = abs(pot_elbow - a_elbow) #how many degrees off the intended value the arm is
-    calculated_error_e = error_e / d_two
-    if pot_elbow > a_elbow and calculated_error_e > max_error:
-        RPL.digitalWrite(elbow_dir, 1) #turn clockwise
-        RPL.pwmWrite(elbow_pul, motor_speed, motor_speed * 2)
-    if pot_elbow < a_elbow and calculated_error_e > max_error:
-        RPL.digitalWrite(elbow_dir, 0) #turn counterclockwise
-        RPL.pwmWrite(elbow_pul, motor_speed, motor_speed * 2)
-    if calculated_error_e < max_error:
-        RPL.pwmWrite(elbow_pul, 0, motor_speed * 2)
-
-    pot_swivel = RPL.analogRead(ppin_swivel) * 29 * math.pi / 18432
-    error_sw = abs(pot_swivel - a_swivel)
-    if pot_swivel > a_swivel and error_sw > max_error:
-        RPL.servoWrite(swivel_continuous, 2000)
-    if pot_swivel < a_swivel and error_sw > max_error:
-        RPL.servoWrite(swivel_continuous, 1000)
-    if error_sw < max_error:
-        RPL.servoWrite(swivel_continuous, 0)
