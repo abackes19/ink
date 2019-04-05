@@ -100,7 +100,7 @@ while True:
             speed = 1
     elif key == '1': #quit the program
         RPL.pwmWrite(shoulder_pul, 0, 1)
-        RPL.pmwWrite(elbow_pul, 0, 1)
+        RPL.pwmWrite(elbow_pul, 0, 1)
         RPL.servoWrite(swivel_continuous, 0)
         exit(0)
 
