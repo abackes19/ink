@@ -3,6 +3,8 @@
 
 import pygame, math, fractions, time
 from pygame.locals import *
+import RoboPiLib as RPL
+import setup
 
 pygame.init()
 
@@ -40,6 +42,12 @@ yo = y
 x_change = 0
 y_change = 0
 
+s_pin = 1
+e_pin = 0
+input_shoulder = 2000
+input_elbow = 1450
+
+
 # ^^^ that all would be the setup
 
 done = False
@@ -69,6 +77,7 @@ def ik(xm, ym): # here is where we do math
 
     pygame.display.flip()
 
+
 def pos(x, y):
     x_change = 0
     y_change = 0
@@ -89,6 +98,15 @@ def pos(x, y):
 
     return x_change, y_change
 
+def arm(a_shoulder, a_elbow):
+    a_elbow = a_elbow * 180 / math.pi # make to degrees
+    a_shoulder = a_shoulder * 180 / math.pi # make to degrees
+    input_elbow = int(fraction_elbow * a_elbow * 2000 / math.pi + 400);
+    input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #angle and motor value calculations
+    RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
+
+RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
+
 while not done:
     clock.tick(60)
     # determine where want to be
@@ -97,11 +115,9 @@ while not done:
             done=True # Flag that we are done so we exit this loop
         else: # did something other than close
             x_change, y_change = pos(x,y) # figure out the change
-
     # move
     x += x_change
     y += y_change
-
 
     if ik(x, y) != False:
         # determine elbow point
@@ -113,11 +129,16 @@ while not done:
         pygame.draw.lines(gameDisplay, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(gameDisplay, pink, (x, y), (5), 0)
 
-# Be IDLE friendly
+
     pygame.display.update()
     gameDisplay.fill(grey)
     pygame.draw.circle(gameDisplay, white, (originx, originy), (d_one + d_two), 0)
     pygame.draw.circle(gameDisplay, grey, (originx, originy), (d_one - d_two), 0)
     pygame.draw.rect(gameDisplay, grey, [0, (originy + 24), display_width, display_width])
-#please work rectangle
+
+    arm(a_shoulder, a_elbow)
+
+
+
+####
 pygame.quit()
