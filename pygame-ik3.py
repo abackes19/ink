@@ -3,7 +3,7 @@
 
 import pygame, math, fractions, time
 from pygame.locals import *
-import RoboPiLib as RPL
+import pRoboPiLib as RPL
 import setup
 
 pygame.init()
@@ -38,7 +38,6 @@ pygame.display.update()
 x, y = originx+d_two, originy-d_one
 xo = x
 yo = y
-
 x_change = 0
 y_change = 0
 
@@ -101,9 +100,10 @@ def pos(x, y):
 def arm(a_shoulder, a_elbow):
     a_elbow = a_elbow * 180 / math.pi # make to degrees
     a_shoulder = a_shoulder * 180 / math.pi # make to degrees
-    input_elbow = int(fraction_elbow * a_elbow * 2000 / math.pi + 400);
-    input_shoulder = int(fraction_shoulder * a_shoulder * 2000 / math.pi + 400) #angle and motor value calculations
+    input_elbow = int(a_elbow * (2000/180)  + 400);
+    input_shoulder = int(a_shoulder * (2000/180) + 400) #angle and motor value calculations
     RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
+
 
 RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
 
