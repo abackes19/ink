@@ -1,10 +1,11 @@
 # using arrow keys!
 # notes: can use continuously, but use one key at a time in an orderly fashion
 
+import RoboPiLib as RPL
+import setup
 import pygame, math, fractions, time
 from pygame.locals import *
-import pRoboPiLib as RPL
-import setup
+
 
 pygame.init()
 
