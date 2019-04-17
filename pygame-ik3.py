@@ -44,8 +44,10 @@ y_change = 0
 
 s_pin = 1
 e_pin = 0
-input_shoulder = 2000
+input_shoulder = 2400
 input_elbow = 1450
+a_shoulder = 90
+a_elbow = 90
 
 
 # ^^^ that all would be the setup
