@@ -72,6 +72,7 @@ def ik(xm, ym): # here is where we do math
         xe = d_one * math.cos(a_shoulder) + originx
         ye = originy - (d_one * math.sin(a_shoulder))
         return xe, ye
+        return a_shoulder, a_elbow
     else:
         return False
 
@@ -103,7 +104,7 @@ def arm(a_shoulder, a_elbow):
     a_shoulder = a_shoulder * 180 / math.pi # make to degrees
     input_elbow = int(a_elbow * (2000/180)  + 400);
     input_shoulder = int(a_shoulder * (2000/180) + 400) #angle and motor value calculations
-    RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
+    return input_elbow, input_shoulder
 
 
 RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
@@ -123,6 +124,7 @@ while not done:
     if ik(x, y) != False:
         # determine elbow point
         xe, ye = ik(x,y)
+        arm(a_shoulder, a_elbow)
         xo = x; yo = y
         # draw line
         pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
@@ -130,6 +132,7 @@ while not done:
         pygame.draw.lines(gameDisplay, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(gameDisplay, pink, (x, y), (5), 0)
 
+    RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
 
     pygame.display.update()
     gameDisplay.fill(grey)
@@ -137,7 +140,7 @@ while not done:
     pygame.draw.circle(gameDisplay, grey, (originx, originy), (d_one - d_two), 0)
     pygame.draw.rect(gameDisplay, grey, [0, (originy + 24), display_width, display_width])
 
-    arm(a_shoulder, a_elbow)
+
 
 
 
