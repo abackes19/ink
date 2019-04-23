@@ -2,7 +2,7 @@
 # notes: can use continuously, but use one key at a time in an orderly fashion
 
 import RoboPiLib3 as RPL
-import setup
+import setup3
 import pygame, math, fractions, time
 from pygame.locals import *
 
