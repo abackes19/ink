@@ -18,17 +18,17 @@ blue = (102, 136, 214)
 pink = (232, 13, 119)
 grey = (203, 206, 214)
 
-display_width = 800
-display_height = 600
+display_width = 500
+display_height = 500
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 gameDisplay.fill(white)
 clock = pygame.time.Clock()
 
 step = 4
-originx = 400
-originy = 300
-d_one = 124 # the distance from shoulder to elbow
-d_two = 96 # distance from elbow to wrist
+originx = 250
+originy = 250
+d_one = 90 # the distance from shoulder to elbow
+d_two = 90 # distance from elbow to wrist
 
 pygame.draw.circle(gameDisplay, grey, (originx, originy), (d_one + d_two), 0)
 pygame.draw.circle(gameDisplay, white, (originx, originy), (d_one - d_two), 0)
@@ -45,7 +45,7 @@ y_change = 0
 s_pin = 1
 e_pin = 0
 input_shoulder = 2400
-input_elbow = 1450
+input_elbow = 1400
 a_shoulder = 90
 a_elbow = 90
 
@@ -130,11 +130,12 @@ while not done:
         xo = x; yo = y
         # draw line
         pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
+        RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow) # inputs determined by arm()
+
     else: # out of range so stay
         pygame.draw.lines(gameDisplay, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(gameDisplay, pink, (x, y), (5), 0)
 
-    RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
 
     pygame.display.update()
     gameDisplay.fill(grey)
