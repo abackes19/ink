@@ -130,6 +130,7 @@ while not done:
         xo = x; yo = y
         # draw line
         pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
+        print(input_shoulder)
         RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow) # inputs determined by arm()
 
     else: # out of range so stay
