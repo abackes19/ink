@@ -46,8 +46,8 @@ s_pin = 1
 e_pin = 0
 input_shoulder = 2400
 input_elbow = 1400
-a_shoulder = 90
-a_elbow = 90
+a_shoulder = math.pi / 2
+a_elbow = math.pi / 2
 
 
 # ^^^ that all would be the setup
@@ -123,7 +123,8 @@ while not done:
 
     if ik(x, y) != False:
         # determine elbow point
-        xe, ye = ik(x,y)
+        xe, ye, a_shoulder, a_elbow = ik(x,y)
+
         input_elbow, input_shoulder = arm(a_shoulder, a_elbow)
         print(input_shoulder)
         xo = x; yo = y
