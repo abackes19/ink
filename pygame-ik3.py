@@ -102,8 +102,8 @@ def pos(x, y):
     return x_change, y_change
 
 def arm(a_shoulder, a_elbow):
-    input_elbow = a_elbow * (2000/math.pi)  + 400
-    input_shoulder = a_shoulder * (2000/math.pi) + 400 #angle and motor value calculations
+    input_elbow = int(a_elbow * (2000/math.pi)  + 400)
+    input_shoulder = int(a_shoulder * (2000/math.pi) + 400) #angle and motor value calculations
     return input_elbow, input_shoulder
 
 
