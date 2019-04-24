@@ -27,8 +27,8 @@ clock = pygame.time.Clock()
 step = 4
 originx = 250
 originy = 250
-d_one = 90 # the distance from shoulder to elbow
-d_two = 95 # distance from elbow to wrist
+d_one = 95 # the distance from shoulder to elbow
+d_two = 90 # distance from elbow to wrist
 
 pygame.draw.circle(gameDisplay, grey, (originx, originy), (d_one + d_two), 0)
 pygame.draw.circle(gameDisplay, white, (originx, originy), (d_one - d_two), 0)
