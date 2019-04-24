@@ -28,7 +28,7 @@ step = 4
 originx = 250
 originy = 250
 d_one = 90 # the distance from shoulder to elbow
-d_two = 90 # distance from elbow to wrist
+d_two = 95 # distance from elbow to wrist
 
 pygame.draw.circle(gameDisplay, grey, (originx, originy), (d_one + d_two), 0)
 pygame.draw.circle(gameDisplay, white, (originx, originy), (d_one - d_two), 0)
@@ -122,7 +122,7 @@ while not done:
     # move
     x += x_change
     y += y_change
-
+    print(input_shoulder)
     if ik(x, y) != False:
         # determine elbow point
         xe, ye = ik(x,y)
@@ -130,7 +130,6 @@ while not done:
         xo = x; yo = y
         # draw line
         pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
-        print(input_shoulder)
         RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow) # inputs determined by arm()
 
     else: # out of range so stay
