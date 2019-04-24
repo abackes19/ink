@@ -122,11 +122,12 @@ while not done:
     # move
     x += x_change
     y += y_change
-    print(input_shoulder)
+
     if ik(x, y) != False:
         # determine elbow point
         xe, ye = ik(x,y)
-        arm(a_shoulder, a_elbow)
+        input_elbow, input_shoulder = arm(a_shoulder, a_elbow)
+        print(input_shoulder)
         xo = x; yo = y
         # draw line
         pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
