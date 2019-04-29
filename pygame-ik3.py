@@ -125,7 +125,6 @@ while not done:
         ye = originy - (d_one * math.sin(a_shoulder))
 
         input_elbow, input_shoulder = arm(a_shoulder, a_elbow)
-        print(input_shoulder)
         xo = x; yo = y
         # draw line
         pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
