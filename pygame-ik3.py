@@ -71,9 +71,6 @@ def ik(xm, ym): # here is where we do math
         a_shoulder = (a_four + a_two)  # shoulder angle?
         a_elbow = a_three
 
-        xe = d_one * math.cos(a_shoulder) + originx
-        ye = originy - (d_one * math.sin(a_shoulder))
-        return xe, ye
         return a_shoulder, a_elbow
     else:
         return False
@@ -123,7 +120,9 @@ while not done:
 
     if ik(x, y) != False:
         # determine elbow point
-        xe, ye, a_shoulder, a_elbow = ik(x,y)
+        a_shoulder, a_elbow = ik(x,y)
+        xe = d_one * math.cos(a_shoulder) + originx
+        ye = originy - (d_one * math.sin(a_shoulder))
 
         input_elbow, input_shoulder = arm(a_shoulder, a_elbow)
         print(input_shoulder)
