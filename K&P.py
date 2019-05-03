@@ -6,11 +6,11 @@ y = 20.0 #starting y value
 z = 20.0 #starting z value
 speed = 1 #starting speed (whole number between 1 and 4)
 
-print "Hit '1' to stop code"
+print "Press '1' to stop code"
 
 def test(): #function for angle domains
     d_three = (round(x, 2) ** 2 + round(y, 2) ** 2 + round(z, 2) ** 2) ** 0.5
-    if d_three > d_one + d_two or d_three < d_one - d_two or z < 0:
+    if d_three > d_one + d_two or d_three < d_one - d_two:
         return False
 
 def x_up(): #increase x value
@@ -43,7 +43,7 @@ def speed_down(): #decrease speed value
 
 import sys, tty, termios #imports for no return command
 
-fd = sys.stdin.fileno() #I'm not sure what this does
+fd = sys.stdin.fileno() #unix file descriptor to define the file type
 old_settings = termios.tcgetattr(fd) #records the existing console settings
 
 tty.setcbreak(sys.stdin) #sets the style of input
