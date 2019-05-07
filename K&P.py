@@ -127,38 +127,9 @@ RPL.pinMode(elbow_dir, RPL.OUTPUT) #set elbow_dir pin to an output and write 1 t
 
 def motor_runner(): #sends signals to all the motors based on potentiometer readings
     while quit == False:
-        pot_shoulder = RPL.analogRead(ppin_shoulder) * 29 * math.pi / 18432
-        error_s = abs(pot_shoulder - a_shoulder) #how many degrees off the intended value the arm is
-        calculated_error_s = error_s / d_one
-        if pot_shoulder > a_shoulder and calculated_error_s > max_error:
+        if x > 50:
             RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
             RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
-        elif pot_shoulder < a_shoulder and calculated_error_s > max_error:
-            RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
-            RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
-        elif calculated_error_s < max_error:
-            RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
-
-        pot_elbow = RPL.analogRead(ppin_elbow) * 29 * math.pi / 18432
-        error_e = abs(pot_elbow - a_elbow) #how many degrees off the intended value the arm is
-        calculated_error_e = error_e / d_two
-        if pot_elbow > a_elbow and calculated_error_e > max_error:
-            RPL.digitalWrite(elbow_dir, 1) #turn clockwise
-            RPL.pwmWrite(elbow_pul, motor_speed, motor_speed * 2)
-        elif pot_elbow < a_elbow and calculated_error_e > max_error:
-            RPL.digitalWrite(elbow_dir, 0) #turn counterclockwise
-            RPL.pwmWrite(elbow_pul, motor_speed, motor_speed * 2)
-        elif calculated_error_e < max_error:
-            RPL.pwmWrite(elbow_pul, 0, motor_speed * 2) #stops running while in range
-
-        pot_swivel = RPL.analogRead(ppin_swivel) * 29 * math.pi / 18432
-        error_sw = abs(pot_swivel - a_swivel) #how many degrees off the intended value the arm is
-        if pot_swivel > a_swivel and error_sw > max_error:
-            RPL.servoWrite(swivel_continuous, 2000) #turn clockwise
-        elif pot_swivel < a_swivel and error_sw > max_error:
-            RPL.servoWrite(swivel_continuous, 1000) #turn counterclockwise
-        elif error_sw < max_error:
-            RPL.servoWrite(swivel_continuous, 0) #stops running while in range
 
 import threading #runs both functions simultanously
 threading.Thread(target=motor_runner, name='motor_runner').start()
