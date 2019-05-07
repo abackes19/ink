@@ -130,6 +130,9 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
         pot_shoulder = RPL.analogRead(ppin_shoulder) * 29 * math.pi / 18432
         error_s = abs(pot_shoulder - a_shoulder) #how many degrees off the intended value the arm is
         calculated_error_s = error_s / d_one
+        print 'calculated error', calculated_error_s
+        print 'a_shoulder', a_shoulder
+        print 'pot position', pot_shoulder
         if pot_shoulder > a_shoulder and calculated_error_s > max_error:
             RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
             RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
