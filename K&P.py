@@ -130,6 +130,8 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
         if x > 50:
             RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
             RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
+        else:
+            RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
 
 import threading #runs both functions simultanously
 threading.Thread(target=motor_runner, name='motor_runner').start()
