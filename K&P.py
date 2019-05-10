@@ -90,9 +90,13 @@ def key_reader(): #reading input key functions
                 z_up()
 
 import math #to calculate all angle values
-a_elbow = math.acos((d_one ** 2 + d_two ** 2 - round(x, 2) ** 2 - round(y, 2) ** 2 - round(z, 2) ** 2) / (2 * d_one * d_two))
-a_shoulder = math.asin((d_two * math.sin(a_elbow) / (round(x, 2) ** 2 + round(y, 2) ** 2 + round(z, 2) ** 2) ** 0.5)) + math.atan2(round(y, 2), (round(x, 2) ** 2 + round(z, 2) ** 2) ** 0.5)
-a_swivel = math.atan2(round(x, 2), round(z, 2)) + math.pi / 2
+def angles():
+    global a_elbow
+    a_elbow = math.acos((d_one ** 2 + d_two ** 2 - round(x, 2) ** 2 - round(y, 2) ** 2 - round(z, 2) ** 2) / (2 * d_one * d_two))
+    global a_shoulder
+    a_shoulder = math.asin((d_two * math.sin(a_elbow) / (round(x, 2) ** 2 + round(y, 2) ** 2 + round(z, 2) ** 2) ** 0.5)) + math.atan2(round(y, 2), (round(x, 2) ** 2 + round(z, 2) ** 2) ** 0.5)
+    global a_swivel
+    a_swivel = math.atan2(round(x, 2), round(z, 2)) + math.pi / 2
 
 quit = False #for breaking the motor loop with the '1' key command
 import RoboPiLib_pwm as RPL #to pull all files needed to run the motors
@@ -127,14 +131,16 @@ RPL.pinMode(elbow_dir, RPL.OUTPUT) #set elbow_dir pin to an output and write 1 t
 
 def motor_runner(): #sends signals to all the motors based on potentiometer readings
     while quit == False:
+        angles()
+
         pot_shoulder = RPL.analogRead(ppin_shoulder) * 29 * math.pi / 18432
         error_s = abs(pot_shoulder - a_shoulder) #how many degrees off the intended value the arm is
         calculated_error_s = error_s * d_one
         if pot_shoulder > a_shoulder and calculated_error_s > max_error:
-            RPL.digitalWrite(shoulder_dir, 0) #turn clockwise
+            RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
             RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
         elif pot_shoulder < a_shoulder and calculated_error_s > max_error:
-            RPL.digitalWrite(shoulder_dir, 1) #turn counterclockwise
+            RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
             RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
         elif calculated_error_s < max_error:
             RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
@@ -143,10 +149,10 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
         error_e = abs(pot_elbow - a_elbow) #how many degrees off the intended value the arm is
         calculated_error_e = error_e * d_two
         if pot_elbow > a_elbow and calculated_error_e > max_error:
-            RPL.digitalWrite(elbow_dir, 0) #turn clockwise
+            RPL.digitalWrite(elbow_dir, 1) #turn clockwise
             RPL.pwmWrite(elbow_pul, motor_speed, motor_speed * 2)
         elif pot_elbow < a_elbow and calculated_error_e > max_error:
-            RPL.digitalWrite(elbow_dir, 1) #turn counterclockwise
+            RPL.digitalWrite(elbow_dir, 0) #turn counterclockwise
             RPL.pwmWrite(elbow_pul, motor_speed, motor_speed * 2)
         elif calculated_error_e < max_error:
             RPL.pwmWrite(elbow_pul, 0, motor_speed * 2) #stops running while in range
