@@ -2,8 +2,8 @@ d_one = 62.0 #distance from shoulder to elbow
 d_two = 48.0 #distance from elbow to wrist
 
 x = 0.0 #starting x value
-y = 20.0 #starting y value
-z = 20.0 #starting z value
+y = 110.0 #starting y value
+z = 0.0 #starting z value
 speed = 1 #starting speed (whole number between 1 and 4)
 
 print "Press '1' to stop code"
