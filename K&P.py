@@ -95,7 +95,7 @@ RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
 
 motor_speed = 500
 
-max_error = 2
+max_error = 5 #max distance arm can be away from intended point
 
 shoulder_pul = 1 #shoulde pulse pin
 shoulder_dir = 2 #shoulde direction pin
