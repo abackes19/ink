@@ -2,8 +2,8 @@ d_one = 62.0 #distance from shoulder to elbow
 d_two = 48.0 #distance from elbow to wrist
 
 x = 0.0 #starting x value
-y = 20.0 #starting y value
-z = 20.0 #starting z value
+y = 110.0 #starting y value
+z = 0.0 #starting z value
 speed = 1 #starting speed (whole number between 1 and 4)
 
 print "Press '1' to stop code"
@@ -41,10 +41,6 @@ def speed_down(): #decrease speed value
     global speed
     speed -= 1
 
-quit = False #for breaking the motor loop with the '1' key command
-import RoboPiLib_pwm as RPL #to pull all files needed to run the motors
-RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
-
 import sys, tty, termios #imports for no return command
 
 fd = sys.stdin.fileno() #unix file descriptor to define the file type
@@ -56,9 +52,6 @@ def key_reader(): #reading input key functions
     while True:
         key = sys.stdin.read(1) #reads one character of input without requiring a return command
         if key == '1': #pressing the '1' key kills the process
-            RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
-            RPL.pwmWrite(elbow_pul, 0, motor_speed * 2)
-            RPL.servoWrite(swivel_continuous, 0) #stops running while in range
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings) #resets the console settings
             global quit #to quit out of the motor loop
             quit = True
@@ -95,6 +88,10 @@ def key_reader(): #reading input key functions
             z_down()
             if test() == False:
                 z_up()
+
+quit = False #for breaking the motor loop with the '1' key command
+import RoboPiLib_pwm as RPL #to pull all files needed to run the motors
+RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
 
 motor_speed = 500
 
@@ -167,3 +164,8 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
 import threading #runs both functions simultanously
 threading.Thread(target=motor_runner, name='motor_runner').start()
 threading.Thread(target=key_reader, name='key_reader').start()
+
+if quit == True: #stop all motors when the code ends
+    RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
+    RPL.pwmWrite(elbow_pul, 0, motor_speed * 2) #stops running while in range
+    RPL.servoWrite(swivel_continuous, 0) #stops running while in range
