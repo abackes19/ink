@@ -97,8 +97,8 @@ motor_speed = 500
 
 max_error = 5 #max distance arm can be away from intended point
 
-shoulder_pul = 1 #shoulde pulse pin
-shoulder_dir = 2 #shoulde direction pin
+shoulder_pul = 1 #shoulder pulse pin
+shoulder_dir = 2 #shoulder direction pin
 elbow_pul = 3 #elbow pulse pin
 elbow_dir = 4 #elbow direction pin
 swivel_continuous = 1 #pin for swivel motor
