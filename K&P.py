@@ -41,10 +41,61 @@ def speed_down(): #decrease speed value
     global speed
     speed -= 1
 
-quit = False #for breaking the motor loop with the '1' key command
+import sys, tty, termios #imports for no return command
 import RoboPiLib_pwm as RPL #to pull all files needed to run the motors
 RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
 
+fd = sys.stdin.fileno() #unix file descriptor to define the file type
+old_settings = termios.tcgetattr(fd) #records the existing console settings
+
+tty.setcbreak(sys.stdin) #sets the style of input
+
+def key_reader(): #reading input key functions
+    while True:
+        key = sys.stdin.read(1) #reads one character of input without requiring a return command
+
+        if key == '1': #pressing the '1' key kills the process
+            RPL.pwmWrite(elbow_pul, 0, motor_speed * 2) #stops running while in range
+            RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
+            RPL.servoWrite(swivel_continuous, 0) #stops running while in range
+            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings) #resets the console settings
+            global quit #to quit out of the motor loop
+            quit = True
+            break
+
+        elif key == 'x' and speed < 4: #increase speed
+            speed_up()
+        elif key == 'z' and speed > 1: #decrease speed
+            speed_down()
+
+        elif key == 'd': #increase x value
+            x_up()
+            if test() == False:
+                x_down()
+        elif key == 'a': #decrease x value
+            x_down()
+            if test() == False:
+                x_up()
+
+        elif key == 'w': #increase y value
+            y_up()
+            if test() == False:
+                y_down()
+        elif key == 's': #decrease y value
+            y_down()
+            if test() == False:
+                y_up()
+
+        elif key == 'e': #increase z value
+            z_up()
+            if test() == False:
+                z_down()
+        elif key == 'q': #decrease z value
+            z_down()
+            if test() == False:
+                z_up()
+
+quit = False #for breaking the motor loop with the '1' key command
 motor_speed = 500
 
 max_error = 2
@@ -112,57 +163,6 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
             RPL.servoWrite(swivel_continuous, 1000) #turn counterclockwise
         elif error_sw < max_error:
             RPL.servoWrite(swivel_continuous, 0) #stops running while in range
-
-import sys, tty, termios #imports for no return command
-
-fd = sys.stdin.fileno() #unix file descriptor to define the file type
-old_settings = termios.tcgetattr(fd) #records the existing console settings
-
-tty.setcbreak(sys.stdin) #sets the style of input
-
-def key_reader(): #reading input key functions
-    while True:
-        key = sys.stdin.read(1) #reads one character of input without requiring a return command
-        if key == '1': #pressing the '1' key kills the process
-            RPL.pwmWrite(elbow_pul, 0, motor_speed * 2) #stops running while in range
-            RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
-            RPL.servoWrite(swivel_continuous, 0) #stops running while in range
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings) #resets the console settings
-            global quit #to quit out of the motor loop
-            quit = True
-            break
-
-        elif key == 'x' and speed < 4: #increase speed
-            speed_up()
-        elif key == 'z' and speed > 1: #decrease speed
-            speed_down()
-
-        elif key == 'd': #increase x value
-            x_up()
-            if test() == False:
-                x_down()
-        elif key == 'a': #decrease x value
-            x_down()
-            if test() == False:
-                x_up()
-
-        elif key == 'w': #increase y value
-            y_up()
-            if test() == False:
-                y_down()
-        elif key == 's': #decrease y value
-            y_down()
-            if test() == False:
-                y_up()
-
-        elif key == 'e': #increase z value
-            z_up()
-            if test() == False:
-                z_down()
-        elif key == 'q': #decrease z value
-            z_down()
-            if test() == False:
-                z_up()
 
 import threading #runs both functions simultanously
 threading.Thread(target=motor_runner, name='motor_runner').start()
