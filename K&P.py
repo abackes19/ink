@@ -161,11 +161,11 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
         elif error_sw < max_error:
             RPL.servoWrite(swivel_continuous, 0) #stops running while in range
 
+if quit == True: #stop all motors when the code ends
+    RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
+    RPL.pwmWrite(elbow_pul, 0, motor_speed * 2)
+    RPL.servoWrite(swivel_continuous, 0)
+
 import threading #runs both functions simultanously
 threading.Thread(target=motor_runner, name='motor_runner').start()
 threading.Thread(target=key_reader, name='key_reader').start()
-
-if quit == True: #stop all motors when the code ends
-    RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
-    RPL.pwmWrite(elbow_pul, 0, motor_speed * 2) #stops running while in range
-    RPL.servoWrite(swivel_continuous, 0) #stops running while in range
