@@ -77,7 +77,7 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
     while quit == False:
         reach_length = (x ** 2 + y ** 2 + z ** 2) ** 0.5
         a_elbow = math.acos((d_one ** 2 + d_two ** 2 - round(reach_length, 2) ** 2) / (2 * d_one * d_two))
-        a_shoulder = math.asin(d_two * math.sin(a_elbow) / round(reach_length, 2) ** 2) + math.asin(round(y, 2), round(reach_length, 2))
+        a_shoulder = math.asin(d_two * math.sin(a_elbow) / round(reach_length, 2)) + math.asin(round(y, 2) / round(reach_length, 2))
         a_swivel = math.atan2(round(x, 2), round(z, 2))
 
         pot_shoulder = RPL.analogRead(ppin_shoulder) * 29 * math.pi / 18432
