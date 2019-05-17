@@ -41,9 +41,11 @@ def speed_down(): #decrease speed value
     global speed
     speed -= 1
 
-import sys, tty, termios #imports for no return command
+quit = False #for breaking the motor loop with the '1' key command
 import RoboPiLib_pwm as RPL #to pull all files needed to run the motors
 RPL.RoboPiInit("/dev/ttyAMA0", 115200) #connect to RoboPi
+
+import sys, tty, termios #imports for no return command
 
 fd = sys.stdin.fileno() #unix file descriptor to define the file type
 old_settings = termios.tcgetattr(fd) #records the existing console settings
@@ -53,10 +55,9 @@ tty.setcbreak(sys.stdin) #sets the style of input
 def key_reader(): #reading input key functions
     while True:
         key = sys.stdin.read(1) #reads one character of input without requiring a return command
-
         if key == '1': #pressing the '1' key kills the process
-            RPL.pwmWrite(elbow_pul, 0, motor_speed * 2) #stops running while in range
-            RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
+            RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
+            RPL.pwmWrite(elbow_pul, 0, motor_speed * 2)
             RPL.servoWrite(swivel_continuous, 0) #stops running while in range
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings) #resets the console settings
             global quit #to quit out of the motor loop
@@ -95,7 +96,6 @@ def key_reader(): #reading input key functions
             if test() == False:
                 z_up()
 
-quit = False #for breaking the motor loop with the '1' key command
 motor_speed = 500
 
 max_error = 2
