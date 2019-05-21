@@ -40,6 +40,11 @@ def speed_up(): #increase speed value
 def speed_down(): #decrease speed value
     global speed
     speed -= 1
+    
+def stop():
+    RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
+    RPL.pwmWrite(elbow_pul, 0, motor_speed * 2)
+    RPL.servoWrite(swivel_continuous, 0)
 
 import sys, tty, termios #imports for no return command
 
@@ -55,6 +60,7 @@ def key_reader(): #reading input key functions
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings) #resets the console settings
             global quit #to quit out of the motor loop
             quit = True
+            stop()
             break
 
         elif key == 'x' and speed < 4: #increase speed
@@ -160,11 +166,6 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
             RPL.servoWrite(swivel_continuous, 1000) #turn counterclockwise
         elif error_sw < max_error:
             RPL.servoWrite(swivel_continuous, 0) #stops running while in range
-
-if quit == True: #stop all motors when the code ends
-    RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2)
-    RPL.pwmWrite(elbow_pul, 0, motor_speed * 2)
-    RPL.servoWrite(swivel_continuous, 0)
 
 import threading #runs both functions simultanously
 threading.Thread(target=motor_runner, name='motor_runner').start()
