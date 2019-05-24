@@ -9,8 +9,8 @@ speed = 1 #starting speed (whole number between 1 and 4)
 print "Press '1' to stop code"
 
 def test(): #function for angle domains
-    d_three = (round(x, 2) ** 2 + round(y, 2) ** 2 + round(z, 2) ** 2) ** 0.5
-    if d_three > d_one + d_two or d_three < d_one - d_two:
+    reach_length = (x ** 2 + y ** 2 + z ** 2) ** 0.5
+    if reach_length > d_one + d_two or reach_length < d_one - d_two:
         return False
 
 def x_up(): #increase x value
@@ -124,8 +124,8 @@ import math #to calculate all angle values
 def motor_runner(): #sends signals to all the motors based on potentiometer readings
     while quit == False:
         reach_length = (x ** 2 + y ** 2 + z ** 2) ** 0.5
-        a_elbow = math.acos((d_one ** 2 + d_two ** 2 - round(reach_length, 2) ** 2) / (2 * d_one * d_two))
-        a_shoulder = math.asin(d_two * math.sin(a_elbow) / round(reach_length, 2)) + math.asin(round(y, 2) / round(reach_length, 2))
+        a_elbow = math.acos(round(((d_one ** 2 + d_two ** 2 - reach_length ** 2) / (2 * d_one * d_two)), 2))
+        a_shoulder = math.asin(round((d_two * math.sin(a_elbow) / reach_length), 2)) + math.asin(round((y / reach_length), 2))
         a_swivel = math.atan2(round(x, 2), round(z, 2))
 
         pot_shoulder = RPL.analogRead(ppin_shoulder) * 29 * math.pi / 18432
