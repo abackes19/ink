@@ -105,12 +105,6 @@ def pos(x, y):
 
     return x_change, y_change
 
-def arm(a_shoulder, a_elbow):
-    input_elbow = int(a_elbow * (2000/math.pi)  + 400)
-    input_shoulder = int(a_shoulder * (2000/math.pi) + 400) #angle and motor value calculations
-    return input_elbow, input_shoulder
-
-
 
 ######################################
 #display loop
@@ -134,7 +128,6 @@ while not done:
         xe = d_one * math.cos(a_shoulder) + originx
         ye = originy - (d_one * math.sin(a_shoulder))
 
-        input_elbow, input_shoulder = arm(a_shoulder, a_elbow)
         xo = x; yo = y
         # draw line
         pygame.draw.lines(gameDisplay, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
