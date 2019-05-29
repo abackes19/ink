@@ -9,6 +9,10 @@ from pygame.locals import *
 
 pygame.init()
 
+######################################
+#setup
+######################################
+
 
 white = (255,255,255)
 black = (0,0,0)
@@ -55,6 +59,9 @@ a_elbow = math.pi / 2
 done = False
 clock = pygame.time.Clock()
 
+######################################
+#display functions
+######################################
 
 def ik(xm, ym): # here is where we do math
     y = originy - ym
@@ -106,6 +113,10 @@ def arm(a_shoulder, a_elbow):
 
 RPL.servoWrite(s_pin, input_shoulder); RPL.servoWrite(e_pin, input_elbow)
 
+######################################
+#display loop
+######################################
+
 while not done:
     clock.tick(60)
     # determine where want to be
@@ -142,12 +153,20 @@ while not done:
     pygame.draw.rect(gameDisplay, grey, [0, (originy + 24), display_width, display_width])
 
 
-
-
-
 ####
 pygame.quit()
 
+######################################
+######################################
+# Conner's code
+######################################
+######################################
+
+
+
+######################################
+# Variables
+######################################
 
 d_one = 62.0 #distance from shoulder to elbow
 d_two = 48.0 #distance from elbow to wrist
@@ -160,6 +179,10 @@ speed = 1 #starting speed (whole number between 1 and 4)
 microsoft = apple = False #determine which opperating system is being used
 
 print "Press '1' to end code"
+
+######################################
+# movement functions
+######################################
 
 def test(): #function for angle domains
     reach_length = (x ** 2 + y ** 2 + z ** 2) ** 0.5
@@ -194,6 +217,10 @@ def speed_down(): #decrease speed value
     global speed
     speed -= 1
 
+######################################
+# setup apple vs mcsft
+######################################
+
 try: #if running on apple
     import sys, tty, termios #imports for no return command
 
@@ -208,6 +235,10 @@ except: #if running on microsoft
     import msvcrt #microsoft file for key input
 
     microsoft = True #computer type
+
+######################################
+# read keys
+######################################
 
 def key_reader(): #reading input key functions
     while True:
@@ -255,6 +286,11 @@ def key_reader(): #reading input key functions
             if test() == False:
                 z_up()
 
+
+######################################
+# motor setup
+######################################
+
 quit = False #for breaking the motor loop with the '1' key command
 try: #if not connected to a RoboPi, it can still run
     import RoboPiLib_pwm as RPL #to pull all files needed to run the motors
@@ -289,6 +325,10 @@ try: #if not connected to a RoboPi, it can still run
 
 except:
     print 'Motors unrunnable: unable to reach RoboPiLib_pwm'
+
+######################################
+# run motors
+######################################
 
 import math #to calculate all angle values
 def motor_runner(): #sends signals to all the motors based on potentiometer readings
@@ -337,6 +377,11 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
             time.sleep(1)
             print('[elbow, shoulder, swivel]:', [round(a_elbow, 4), round(a_shoulder, 4), round(a_swivel, 4)], '[Speed]:', [speed], '[x, y, z]:', [round(x, 2), round(y, 2), round(z, 2)])
 
+######################################
+# threading!
+######################################
+
 import threading #runs both functions simultanously
 threading.Thread(target = motor_runner, name = 'motor_runner').start()
 threading.Thread(target = key_reader, name = 'key_reader').start()
+
