@@ -1,11 +1,10 @@
-# using arrow keys! also multiple angles!
+# using arrow keys! also multiple angles! sideview and topview
 # notes: can use continuously, but use one key at a time in an orderly fashion
 
-# add angle variable DONE
-# angle change with keys DONE
-# display angle change with keys (calculate like elbow?)
-# topview length change w/ x y change
-
+# this should work but unable to test bc don't have right computer
+# able to change z coordinate, and see change on topview. 
+# Also should be able to see where elbow joint is too
+# totally possible this doesn't work tho bc I haven't tested it
 
 
 import pygame, math, fractions, time
@@ -14,12 +13,9 @@ from pygame.locals import *
 pygame.init()
 
 
-white = (255,255,255)
-black = (0,0,0)
-red = (255,0,0)
-green = (39, 147, 52)
-blue = (102, 136, 214)
-pink = (232, 13, 119)
+white = (255,255,255); black = (0,0,0)
+red = (255,0,0); green = (39, 147, 52)
+blue = (102, 136, 214); pink = (232, 13, 119)
 grey = (203, 206, 214)
 
 display_width = 1000
@@ -28,31 +24,33 @@ screen = pygame.display.set_mode((display_width,display_height))
 screen.fill(white)
 clock = pygame.time.Clock()
 
-step = 4
+step = 2
 originx = 250
 originy = 250
 d_one = 124 # the distance from shoulder to elbow
 d_two = 96 # distance from elbow to wrist
 toriginx = 725
-toriginy = 250
+toriginz = 250
 
 xm, ym = originx+d_two, originy-d_one
 x, y = originx+d_two, originy-d_one
+z = 0
 xo = x
 yo = y
-a = 90
 x_change = 0
 y_change = 0
-a_change = 0
-td_one = d_one +
-td_two = ### finish this
+z_change = 0
+td_one = d_one + d_two
+
 done = False
 # ^^^ that all would be the setup
+
 
 
 def ik(xm, ym): # here is where we do math
     y = originy - ym
     x = xm - originx
+
 
     sqd_one = d_one ** 2
     sqd_two = d_two ** 2
@@ -64,18 +62,21 @@ def ik(xm, ym): # here is where we do math
         a_four = math.atan2(y , x) # angle between 0 line and wrist
         a_shoulder = (a_four + a_two)  # shoulder angle?
         a_elbow = a_three
+        a_swivel = math.atan2(round(x, 2), round(z, 2))
 
         xe = d_one * math.cos(a_shoulder) + originx
         ye = originy - (d_one * math.sin(a_shoulder))
-        return xe, ye
+        ze = toriginz - (xe * math.tan(a_swivel))
+        return xe, ye, ze
     else:
         return False
 
     pygame.display.flip()
 
-def pos(x, y):
+def pos(x, y, z):
     x_change = 0
     y_change = 0
+    z_change = 0
 
     if event.type == pygame.KEYDOWN:
         # what key are they pressing? move accordingly
@@ -91,11 +92,11 @@ def pos(x, y):
         elif event.key == pygame.K_s:
             y_change = step
         elif event.key == pygame.K_q:
-            a_change = -step
+            z_change = -step
         elif event.key == pygame.K_e:
-            a_change = step
+            z_change = step
 
-    return x_change, y_change
+    return x_change, y_change, z_change
 
 while not done:
     clock.tick(60)
@@ -104,18 +105,21 @@ while not done:
         if event.type == pygame.QUIT: # If user clicked close
             done=True # Flag that we are done so we exit this loop
         else: # did something other than close
-            x_change, y_change = pos(x,y) # figure out the change
+            x_change, y_change, z_change = pos(x,y,z) # figure out the change
 
     # move
-    x += x_change; y += y_change; a += a_change
+    x += x_change; y += y_change; z += z_change
 
     if ik(x, y) != False:
         # determine elbow point
         xe, ye = ik(x,y)
-        xo = x; yo = y
+
+        xo = x; yo = y; zo = z
         # draw line
-        pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
-        pygame.draw.line(screen, blue, [toriginx,toriginy], [toriginx + d_one, toriginy + d_two], 5)
+        pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
+#        pygame.draw.line(screen, blue, [toriginx,toriginy], [toriginx + d_one, toriginy + d_two], 5) # not sure what this was
+        pygame.draw.line(screen, blue, [toriginx, toriginy], [xo + toriginx, toriginz - z])
+        pygame.draw.line(screen, green, [toriginx, toriginy], [xe - originx + toriginx, ze])
 
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
