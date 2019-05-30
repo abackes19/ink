@@ -29,8 +29,8 @@ originx = 250
 originy = 250
 d_one = 124 # the distance from shoulder to elbow
 d_two = 96 # distance from elbow to wrist
-toriginx = 725
-toriginz = 250
+toriginz = 725
+toriginx = 250
 
 xm, ym = originx+d_two, originy-d_one
 x, y = originx+d_two, originy-d_one
@@ -120,8 +120,8 @@ while not done:
         pxe = xe - originx + toriginx
         pxo = xo - originx + toriginx
 #        pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
-        pygame.draw.line(screen, blue, (toriginx, toriginz), [(pxo), (toriginz - z)], 5)
-#        pygame.draw.line(screen, green, (toriginx, toriginz), (pxe, ze), 5)
+        pygame.draw.line(screen, blue, (toriginz, toriginx), [(toriginz - z), (pxo)], 5)
+#        pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
         print(ze)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
