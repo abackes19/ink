@@ -24,7 +24,7 @@ gameDisplay = pygame.display.set_mode((display_width,display_height))
 gameDisplay.fill(white)
 clock = pygame.time.Clock()
 
-step = 4
+step = 2
 originx = 250
 originy = 250
 d_one = 95 # the distance from shoulder to elbow
