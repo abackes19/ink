@@ -47,7 +47,7 @@ done = False
 
 
 
-def ik(xm, ym): # here is where we do math
+def ik(xm, ym, z): # here is where we do math
     y = originy - ym
     x = xm - originx
 
@@ -112,7 +112,7 @@ while not done:
 
     if ik(x, y) != False:
         # determine elbow point
-        xe, ye = ik(x,y)
+        xe, ye, ze = ik(x,y,z)
 
         xo = x; yo = y; zo = z
         # draw line
