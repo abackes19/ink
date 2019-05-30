@@ -70,10 +70,10 @@ def ik(xm, ym): # here is where we do math
         a_three = math.acos((sqd_one + sqd_two - ((y**2) + (x ** 2))) / (2 * pixel_one * pixel_two))
         a_two = math.asin((pixel_two * math.sin(a_three) / pixel_three)) # angle between shoulder and wrist
         a_four = math.atan2(y , x) # angle between 0 line and wrist
-        a_shoulder = (a_four + a_two)  # shoulder angle?
-        a_elbow = a_three
+        pa_shoulder = (a_four + a_two)  # shoulder angle?
+        pa_elbow = a_three
 
-        return a_shoulder, a_elbow
+        return pa_shoulder, pa_elbow
     else:
         return False
 
@@ -120,9 +120,9 @@ def display():
 
         if ik(x, y) != False:
             # determine elbow point
-            a_shoulder, a_elbow = ik(x,y)
-            xe = pixel_one * math.cos(a_shoulder) + originx
-            ye = originy - (pixel_one * math.sin(a_shoulder))
+            pa_shoulder, pa_elbow = ik(x,y)
+            xe = pixel_one * math.cos(pa_shoulder) + originx
+            ye = originy - (pixel_one * math.sin(pa_shoulder))
 
             xo = x; yo = y
             # draw line
@@ -145,8 +145,7 @@ def display():
         pygame.draw.rect(gameDisplay, grey, [0, (originy + 24), display_width, display_width])
 
 
-####
-pygame.quit()
+
 
 ######################################
 ######################################
@@ -160,11 +159,8 @@ pygame.quit()
 # Variables
 ######################################
 
-d_one = 62.0 #distance from shoulder to elbow
-d_two = 48.0 #distance from elbow to wrist
-
-x = 0.0 #starting x value
-y = 110.0 #starting y value
+# x = 0.0 #starting x value  # don't need to set, will be set by ajb code
+# y = 110.0 #starting y value
 z = 0.0 #starting z value
 speed = 1 #starting speed (whole number between 1 and 4)
 
@@ -296,5 +292,7 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
 
 import threading #runs both functions simultanously
 threading.Thread(target = motor_runner, name = 'motor_runner').start()
-threading.Thread(target = key_reader, name = 'key_reader').start()
+threading.Thread(target = display, name = 'display').start()
 
+####
+pygame.quit()
