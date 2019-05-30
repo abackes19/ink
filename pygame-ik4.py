@@ -66,7 +66,7 @@ def ik(xm, ym, z): # here is where we do math
 
         xe = d_one * math.cos(a_shoulder) + originx
         ye = originy - (d_one * math.sin(a_shoulder))
-        ze = toriginz - (xe * math.tan(a_swivel))
+        ze = (xe * math.tan(a_swivel))
         return xe, ye, ze
     else:
         return False
@@ -122,7 +122,7 @@ while not done:
 #        pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
         pygame.draw.line(screen, blue, (toriginx, toriginz), [(pxo), (toriginz - z)], 5)
 #        pygame.draw.line(screen, green, (toriginx, toriginz), (pxe, ze), 5)
-        print(pxe, ze)
+        print(ze)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(screen, pink, (x, y), (5), 0)
