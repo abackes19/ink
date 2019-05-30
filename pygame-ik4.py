@@ -110,7 +110,7 @@ while not done:
     # move
     x += x_change; y += y_change; z += z_change
 
-    if ik(x, y) != False:
+    if ik(x, y, z) != False:
         # determine elbow point
         xe, ye, ze = ik(x,y,z)
 
