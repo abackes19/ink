@@ -121,7 +121,7 @@ while not done:
         pxo = xo - originx + toriginx
 #        pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
         pygame.draw.line(screen, blue, (toriginx, toriginz), [(pxo), (toriginz - z)], 5)
-        pygame.draw.line(screen, green, (toriginx, toriginz), [(pxe), (ze)]], 5)
+        pygame.draw.line(screen, green, (toriginx, toriginz), [(pxe), (ze)], 5)
         
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
