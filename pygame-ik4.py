@@ -117,9 +117,9 @@ while not done:
         xo = x; yo = y; zo = z
         # draw line
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
-#        pygame.draw.line(screen, blue, [toriginx,toriginy], [toriginx + d_one, toriginy + d_two], 5) # not sure what this was
-        pygame.draw.line(screen, blue, [toriginx, toriginy], [xo + toriginx, toriginz - z])
-        pygame.draw.line(screen, green, [toriginx, toriginy], [xe - originx + toriginx, ze])
+#        pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
+        pygame.draw.line(screen, blue, [toriginx, toriginz], [xo + toriginx, toriginz - z], 5)
+        pygame.draw.line(screen, green, [toriginx, toriginz], [xe - originx + toriginx, ze], 5)
 
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
@@ -132,8 +132,8 @@ while not done:
     pygame.draw.circle(screen, grey, (originx, originy), (d_one - d_two), 0)
     pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
     # topview
-    pygame.draw.circle(screen, white, (toriginx, toriginy), (d_one + d_two), 0)
-    pygame.draw.circle(screen, grey, (toriginx, toriginy), (d_one - d_two), 0)
+    pygame.draw.circle(screen, white, (toriginx, toriginz), (d_one + d_two), 0)
+    pygame.draw.circle(screen, grey, (toriginx, toriginz), (d_one - d_two), 0)
 
 #please work rectangle
 pygame.quit()
