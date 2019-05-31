@@ -189,8 +189,8 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
 try:
     if quit == True: #stop the motors when the code ends
         RPL.servoWrite(swivel_continuous, 0) #stops running while in range
-        RPL.pwmWrite(elbow_pul, 0, motor_speed * 2) #stops running while in range
-        RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
+        RPL.pwmWrite(elbow_pul, 0, 10000) #stops running while in range
+        RPL.pwmWrite(shoulder_pul, 0, 10000) #stops running while in range
 except:
     pass
 
