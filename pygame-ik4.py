@@ -134,7 +134,7 @@ while not done:
     pygame.draw.circle(screen, grey, (originx, originy), (d_one - d_two), 0)
     # topview
     pygame.draw.circle(screen, white, (toriginz, toriginx), (d_one + d_two), 0)
-    pygame.draw.circle(screen, grey, (toriginz, toriginx), (d_one - d_two), 0)
+    pygame.draw.circle(screen, grey, (toriginz, toriginx), (2), 0)
     pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
 
 #please work rectangle
