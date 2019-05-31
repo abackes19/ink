@@ -113,12 +113,13 @@ while not done:
     if ik(x, y, z) != False:
         # determine elbow point
         xe, ye, ze = ik(x,y,z)
-
         xo = x; yo = y; zo = z
+        pxe = toriginx - (xe - originx) 
+        pxo = toriginx - (xo - originx) 
+        
         # draw line
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
-        pxe = xe - originx
-        pxo = xo - originx
+
 #        pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
         pygame.draw.line(screen, blue, (toriginz, toriginx), [(toriginz - z), (pxo)], 5)
 #        pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
@@ -133,8 +134,8 @@ while not done:
     pygame.draw.circle(screen, grey, (originx, originy), (d_one - d_two), 0)
     pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
     # topview
-    pygame.draw.circle(screen, white, (toriginx, toriginz), (d_one + d_two), 0)
-    pygame.draw.circle(screen, grey, (toriginx, toriginz), (d_one - d_two), 0)
+    pygame.draw.circle(screen, white, (toriginz, toriginx), (d_one + d_two), 0)
+    pygame.draw.circle(screen, grey, (toriginz, toriginx), (d_one - d_two), 0)
 
 #please work rectangle
 pygame.quit()
