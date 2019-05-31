@@ -92,9 +92,9 @@ def pos(x, y, z):
         elif event.key == pygame.K_s:
             y_change = step
         elif event.key == pygame.K_q:
-            z_change = -step
-        elif event.key == pygame.K_e:
             z_change = step
+        elif event.key == pygame.K_e:
+            z_change = -step
 
     return x_change, y_change, z_change
 
@@ -132,10 +132,10 @@ while not done:
     screen.fill(grey)
     pygame.draw.circle(screen, white, (originx, originy), (d_one + d_two), 0)
     pygame.draw.circle(screen, grey, (originx, originy), (d_one - d_two), 0)
-    pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
     # topview
     pygame.draw.circle(screen, white, (toriginz, toriginx), (d_one + d_two), 0)
     pygame.draw.circle(screen, grey, (toriginz, toriginx), (d_one - d_two), 0)
+    pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
 
 #please work rectangle
 pygame.quit()
