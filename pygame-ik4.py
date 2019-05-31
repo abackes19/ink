@@ -57,11 +57,8 @@ def ik(xm, ym, z): # here is where we do math
 
     d_three = math.sqrt((y**2) + (x**2)) # determining distance from shoulder to wrist ^
     if d_one - d_two < d_three < d_one + d_two and y > -24:
-        a_three = math.acos((sqd_one + sqd_two - ((y**2) + (x ** 2))) / (2 * d_one * d_two))
-        a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
-        a_four = math.atan2(y , x) # angle between 0 line and wrist
-        a_shoulder = (a_four + a_two)  # shoulder angle?
-        a_elbow = a_three
+        a_elbow = math.acos(round(((d_one ** 2 + d_two ** 2 - reach_length ** 2) / (2 * d_one * d_two)), 2))
+        a_shoulder = math.asin(round((d_two * math.sin(a_elbow) / reach_length), 2)) + math.asin(round((y / reach_length), 2))
         a_swivel = math.atan2(round(x, 2), round(z, 2))
 
         xe = d_one * math.cos(a_shoulder) + originx
