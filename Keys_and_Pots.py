@@ -152,10 +152,10 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
             error_s = abs(pot_shoulder - a_shoulder) #how many degrees off the intended value the arm is
             calculated_error_s = error_s * d_one
             if pot_shoulder > a_shoulder and calculated_error_s > max_error:
-                RPL.digitalWrite(shoulder_dir, 1) #turn clockwise
+                RPL.digitalWrite(shoulder_dir, 0) #turn clockwise
                 RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
             elif pot_shoulder < a_shoulder and calculated_error_s > max_error:
-                RPL.digitalWrite(shoulder_dir, 0) #turn counterclockwise
+                RPL.digitalWrite(shoulder_dir, 1) #turn counterclockwise
                 RPL.pwmWrite(shoulder_pul, motor_speed, motor_speed * 2)
             elif calculated_error_s < max_error:
                 RPL.pwmWrite(shoulder_pul, 0, motor_speed * 2) #stops running while in range
