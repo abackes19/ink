@@ -122,7 +122,7 @@ while not done:
 
 #        pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
         pygame.draw.line(screen, blue, (toriginz, toriginx), [(toriginz - z), (pxo)], 5)
-#        pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
+        pygame.draw.line(screen, green, (toriginz, toriginx), (toriginz - ze, pxe), 5)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(screen, pink, (x, y), (5), 0)
@@ -134,7 +134,7 @@ while not done:
     pygame.draw.circle(screen, grey, (originx, originy), (d_one - d_two), 0)
     # topview
     pygame.draw.circle(screen, white, (toriginz, toriginx), (d_one + d_two), 0)
-    pygame.draw.circle(screen, grey, (toriginz, toriginx), (2), 0)
+    pygame.draw.circle(screen, grey, (toriginz, toriginx), (10), 0)
     pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
 
 #please work rectangle
