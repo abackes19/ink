@@ -69,7 +69,7 @@ def ik(xm, ym, z): # here is where we do math
         ze = (xe * math.tan(a_swivel))
         return xe, ye, ze
     else:
-        return False
+        return False, False, False
 
     pygame.display.flip()
 
@@ -106,36 +106,37 @@ while not done:
             done=True # Flag that we are done so we exit this loop
         else: # did something other than close
             x_change, y_change, z_change = pos(x,y,z) # figure out the change
-
-    # move
-    x += x_change; y += y_change; z += z_change
-
-    if ik(x, y, z) != False:
-        # determine elbow point
-        xe, ye, ze = ik(x,y,z)
-        xo = x; yo = y; zo = z
-        pxe = toriginx - (xe - originx) 
-        pxo = toriginx - (xo - originx) 
+    if x_change != False:
         
-        # draw line
-        pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
+        # move
+        x += x_change; y += y_change; z += z_change
 
-#        pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
-        pygame.draw.line(screen, blue, (toriginz, toriginx), [(toriginz - z), (pxo)], 5)
-#        pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
-    else: # out of range so stay
-        pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
-        pygame.draw.circle(screen, pink, (x, y), (5), 0)
+        if ik(x, y, z) != False:
+            # determine elbow point
+            xe, ye, ze = ik(x,y,z)
+            xo = x; yo = y; zo = z
+            pxe = toriginx - (xe - originx) 
+            pxo = toriginx - (xo - originx) 
 
-# Be IDLE friendly
-    pygame.display.update()
-    screen.fill(grey)
-    pygame.draw.circle(screen, white, (originx, originy), (d_one + d_two), 0)
-    pygame.draw.circle(screen, grey, (originx, originy), (d_one - d_two), 0)
-    # topview
-    pygame.draw.circle(screen, white, (toriginz, toriginx), (d_one + d_two), 0)
-    pygame.draw.circle(screen, grey, (toriginz, toriginx), (10), 0)
-    pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
+            # draw line
+            pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
+
+#            pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
+            pygame.draw.line(screen, blue, (toriginz, toriginx), [(toriginz - z), (pxo)], 5)
+#            pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
+        else: # out of range so stay
+            pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
+            pygame.draw.circle(screen, pink, (x, y), (5), 0)
+
+    # Be IDLE friendly
+        pygame.display.update()
+        screen.fill(grey)
+        pygame.draw.circle(screen, white, (originx, originy), (d_one + d_two), 0)
+        pygame.draw.circle(screen, grey, (originx, originy), (d_one - d_two), 0)
+        # topview
+        pygame.draw.circle(screen, white, (toriginz, toriginx), (d_one + d_two), 0)
+        pygame.draw.circle(screen, grey, (toriginz, toriginx), (10), 0)
+        pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
 
 #please work rectangle
 pygame.quit()
