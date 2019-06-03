@@ -81,9 +81,9 @@ def pos(x, y, z):
         elif event.key == pygame.K_d:
             x_change = step
         elif event.key == pygame.K_w:
-            y_change = -step
-        elif event.key == pygame.K_s:
             y_change = step
+        elif event.key == pygame.K_s:
+            y_change = -step
         elif event.key == pygame.K_q:
             z_change = step
         elif event.key == pygame.K_e:
