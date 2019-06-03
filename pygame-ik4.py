@@ -122,7 +122,7 @@ while not done:
 #            pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
-        pygame.draw.circle(screen, pink, (x, y), (5), 0)
+        pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
 
 # Be IDLE friendly
     pygame.display.update()
