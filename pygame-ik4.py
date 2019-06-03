@@ -33,6 +33,7 @@ toriginx = 250
 xm, ym = d_two, d_one
 x, y = d_two, d_one
 z = 0
+w = d_one + d_two
 xo = x
 yo = y
 x_change = 0
@@ -50,16 +51,26 @@ def ik(x, y, z): # here is where we do math
     sqd_one = d_one ** 2
     sqd_two = d_two ** 2
 
-    reach_length = (x ** 2 + y ** 2 + z ** 2) ** 0.5 # determining distance from shoulder to wrist ^
+    reach_length = (x ** 2 + y ** 2 + z ** 2) ** 0.5
+    d_three = math.sqrt((y**2) + (x**2))# determining distance from shoulder to wrist ^
     if reach_length < d_one + d_two and reach_length > d_one - d_two and y > -24:
-        a_elbow = math.acos(round(((d_one ** 2 + d_two ** 2 - reach_length ** 2) / (2 * d_one * d_two)), 2))
-        a_shoulder = math.asin(round((d_two * math.sin(a_elbow) / reach_length), 2)) + math.asin(round((y / reach_length), 2))
+        a_three = math.acos((sqd_one + sqd_two - ((y**2) + (x ** 2))) / (2 * d_one * d_two))
+        a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
+        a_four = math.atan2(y , x) # angle between 0 line and wrist
+        a_shoulder = (a_four + a_two)  # shoulder angle?
+        a_elbow = a_three
+        
+        
+        if x_change != 0:
+            w = math.sqrt(x**2 - z**2)
+        elif z_change != 0:
+            x = math.sqrt(w**2 + z**2)
+            
         a_swivel = math.atan2(round(z, 2), round(x, 2))
-
         xe = d_one * math.cos(a_shoulder) 
         ye = (d_one * math.sin(a_shoulder))
         ze = (xe * math.tan(a_swivel))
-        return xe, ye, ze
+        return xe, ye, ze, x, w
     else:
         return False
 
