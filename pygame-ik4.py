@@ -1,7 +1,7 @@
 # using arrow keys! also multiple angles! sideview and topview
 # notes: can use continuously, but use one key at a time in an orderly fashion
 
-# able to change z coordinate, and see change on topview. 
+# able to change z coordinate, and see change on topview.
 # Also should be able to see where elbow joint is too
 
 
@@ -28,7 +28,7 @@ originy = 250
 d_one = 124 # the distance from shoulder to elbow
 d_two = 96 # distance from elbow to wrist
 toriginz = 725
-toriginx = 250
+toriginw = 250
 
 xm, ym = d_two, d_one
 x, y = d_two, d_one
@@ -47,7 +47,7 @@ done = False
 
 
 def ik(x, y, z): # here is where we do math
-    
+
     sqd_one = d_one ** 2
     sqd_two = d_two ** 2
 
@@ -59,15 +59,15 @@ def ik(x, y, z): # here is where we do math
         a_four = math.atan2(y , x) # angle between 0 line and wrist
         a_shoulder = (a_four + a_two)  # shoulder angle?
         a_elbow = a_three
-        
-        
+
+
         if x_change != 0:
             w = math.sqrt(x**2 - z**2)
         elif z_change != 0:
             x = math.sqrt(w**2 + z**2)
-            
+
         a_swivel = math.atan2(round(z, 2), round(x, 2))
-        xe = d_one * math.cos(a_shoulder) 
+        xe = d_one * math.cos(a_shoulder)
         ye = (d_one * math.sin(a_shoulder))
         ze = (xe * math.tan(a_swivel))
         return xe, ye, ze, x, w
@@ -110,7 +110,7 @@ while not done:
         else: # did something other than close
             x_change, y_change, z_change = pos(x,y,z) # figure out the change
 
-        
+
     # move
     x += x_change
     y += y_change
@@ -121,16 +121,16 @@ while not done:
         xe, ye, ze = ik(x,y,z)
         xo = x + originx; yo = originy - y; zo = toriginz + z
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
-        
-        pxe = toriginx - (xe - originx) 
-        pxo = toriginx - x
+
+        pxe = toriginx - (xe - originx)
+        w = toriginx - w
 
         # draw line
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
 
 #            pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
-        pygame.draw.line(screen, blue, (toriginz, toriginx), [(zo), (pxo)], 5)
-        pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
+        pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (w)], 5)
+        pygame.draw.line(screen, green, (toriginz, toriginw), (ze, pxe), 5)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
