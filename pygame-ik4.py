@@ -110,7 +110,7 @@ while not done:
         # determine elbow point
         xe, ye, ze = ik(x,y,z)
         xo = x + originx; yo = originy - y; zo = toriginz - z
-        xe = xe + originx; ye = originy - ye; ze = toriginz - ze
+        xe = xe + originx; ye = originy - ye; ze = toriginz + ze
         
         pxe = toriginx - (xe - originx) 
         pxo = toriginx - (xo - originx) 
