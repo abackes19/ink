@@ -112,7 +112,7 @@ while not done:
     y += y_change
     z += z_change
 
-    if x_change and z_change = 0:
+    if x_change and z_change == 0:
         w = math.sqrt((x**2) - (z**2))
 
     if x_change != 0:
