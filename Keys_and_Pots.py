@@ -190,10 +190,8 @@ import threading #runs both functions simultanously
 threading.Thread(target = motor_runner, name = 'motor_runner').start()
 threading.Thread(target = key_reader, name = 'key_reader').start()
 
-try:
-    if quit == True: #stop the motors when the code ends
-        RPL.servoWrite(swivel_continuous, 0) #stops running while in range
-        RPL.pwmWrite(elbow_pul, 0, 10000) #stops running while in range
-        RPL.pwmWrite(shoulder_pul, 0, 10000) #stops running while in range
-except:
-    pass
+if quit == True: #stop the motors when the code ends
+    RPL.servoWrite(swivel_continuous, 0) #stops running while in range
+    RPL.pwmWrite(elbow_pul, 0, 10000) #stops running while in range
+    RPL.pwmWrite(shoulder_pul, 0, 10000) #stops running while in range
+    print 'Success'
