@@ -60,13 +60,12 @@ def ik(x, y, z): # here is where we do math
         a_four = math.atan2(y , x) # angle between 0 line and wrist
         a_shoulder = (a_four + a_two)  # shoulder angle?
         a_elbow = a_three
-
-
         
         xe = d_one * math.cos(a_shoulder)
         ye = (d_one * math.sin(a_shoulder))
         ze = xe * (z / x)
         return xe, ye, ze
+    
     else:
         return False
 
@@ -124,16 +123,17 @@ while not done:
 
     if ik(x, y, z) != False:
         # determine elbow point
+        if xe == 0:
+            we = 0
+        else:
+            we = math.sqrt((xe**2) - (ze**2))
+            if xe < 0:
+                we = -we
         xe, ye, ze = ik(x,y,z)
         xo = x + originx; yo = originy - y; zo = toriginz + z
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
         
-        if xe == 0:
-            we = 0
-        else:
-            we = math.sqrt(math.fabs((xe**2) - (ze**2)))
-            if xe < 0:
-                we = -we
+        
 
         # draw line
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
