@@ -139,13 +139,13 @@ while not done:
         # draw line
 #        pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
         pygame.draw.line(screen, blue, (xe, ye), [(xo), (yo)], 5)
-        pygame.draw.line(screen, green, (originx, originy), (xe, ye), 5)
+        pygame.draw.line(screen, pink, (originx, originy), (xe, ye), 5)
         
         pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (toriginw - w)], 5)
-        pygame.draw.line(screen, green, (toriginz, toriginw), (ze, toriginw - we), 5)
+        pygame.draw.line(screen, pink, (toriginz, toriginw), (ze, toriginw - we), 5)
     else: # out of range so stay
-        pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
-#        pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
+        pygame.draw.lines(screen, black, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
+        pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
 
 # Be IDLE friendly
     pygame.display.update()
