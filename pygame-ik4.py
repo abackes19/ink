@@ -107,18 +107,17 @@ while not done:
 
 
     # move
-    if x_change != 0:
-        w = math.sqrt(x**2 - z**2)
-        x += x_change
-    elif z_change != 0:
-        x = math.sqrt(w**2 + z**2)
-
-
+    
+    x += x_change
     y += y_change
     z += z_change
+    
+    if x_change != 0:
+        w = math.sqrt((x**2) - (z**2))
+    elif z_change != 0:
+        x = math.sqrt((w**2) + (z**2))
 
-
-
+        
     if ik(x, y, z) != False:
         # determine elbow point
         xe, ye, ze = ik(x,y,z)
