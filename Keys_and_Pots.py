@@ -186,6 +186,10 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
             time.sleep(1)
             print('[elbow, shoulder, swivel]:', [round(a_elbow, 4), round(a_shoulder, 4), round(a_swivel, 4)], '[Speed]:', [speed], '[x, y, z]:', [round(x, 2), round(y, 2), round(z, 2)])
 
+import threading #runs both functions simultanously
+threading.Thread(target = motor_runner, name = 'motor_runner').start()
+threading.Thread(target = key_reader, name = 'key_reader').start()
+
 try:
     if quit == True: #stop the motors when the code ends
         RPL.servoWrite(swivel_continuous, 0) #stops running while in range
@@ -193,7 +197,3 @@ try:
         RPL.pwmWrite(shoulder_pul, 0, 10000) #stops running while in range
 except:
     pass
-
-import threading #runs both functions simultanously
-threading.Thread(target = motor_runner, name = 'motor_runner').start()
-threading.Thread(target = key_reader, name = 'key_reader').start()
