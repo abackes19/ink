@@ -62,10 +62,10 @@ def ik(x, y, z): # here is where we do math
         a_elbow = a_three
 
 
-        a_swivel = math.atan2(round(z, 2), round(x, 2))
+        
         xe = d_one * math.cos(a_shoulder)
         ye = (d_one * math.sin(a_shoulder))
-        ze = (xe * math.tan(a_swivel))
+        ze = xe * (z / x)
         return xe, ye, ze
     else:
         return False
