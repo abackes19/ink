@@ -27,12 +27,12 @@ originx = 250
 originy = 250
 d_one = 124 # the distance from shoulder to elbow
 d_two = 96 # distance from elbow to wrist
-toriginx = 250
 toriginz = 725
+toriginw = 250
 
 xm, ym = d_two, d_one
 x, y = d_two, d_one
-z = d_two
+z = 0
 w = d_one + d_two
 xo = x
 yo = y
@@ -54,13 +54,23 @@ def ik(x, y, z): # here is where we do math
     reach_length = (x ** 2 + y ** 2 + z ** 2) ** 0.5
     d_three = math.sqrt((y**2) + (x**2))# determining distance from shoulder to wrist ^
     if reach_length < d_one + d_two and reach_length > d_one - d_two and y > -24:
-        a_elbow = math.acos(round(((d_one ** 2 + d_two ** 2 - reach_length ** 2) / (2 * d_one * d_two)), 4))
-        a_shoulder = math.asin(round((d_two * math.sin(a_elbow) / reach_length), 2)) + math.asin(round((y / reach_length), 4))
-        a_swivel = math.atan2(round(x, 2), round(z, 2))
+        a_three = math.acos((sqd_one + sqd_two - ((y**2) + (x ** 2))) / (2 * d_one * d_two))
+        a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
+        a_four = math.atan2(y , x) # angle between 0 line and wrist
+        a_shoulder = (a_four + a_two)  # shoulder angle?
+        a_elbow = a_three
+
+
+        if x_change != 0:
+            w = math.sqrt(x**2 - z**2)
+        elif z_change != 0:
+            x = math.sqrt(w**2 + z**2)
+
+        a_swivel = math.atan2(round(z, 2), round(x, 2))
         xe = d_one * math.cos(a_shoulder)
         ye = (d_one * math.sin(a_shoulder))
         ze = (xe * math.tan(a_swivel))
-        return xe, ye, ze
+        return xe, ye, ze, x, w
     else:
         return False
 
@@ -113,14 +123,14 @@ while not done:
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
 
         pxe = toriginx - (xe - originx)
-        pxo = toriginx - (xo - originx)
+        w = toriginx - w
 
         # draw line
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
 
 #            pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
-        pygame.draw.line(screen, blue, (toriginz, toriginx), [(zo), (pxo)], 5)
-        pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
+        pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (w)], 5)
+        pygame.draw.line(screen, green, (toriginz, toriginw), (ze, pxe), 5)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
@@ -135,5 +145,4 @@ while not done:
     pygame.draw.circle(screen, grey, (toriginz, toriginx), (10), 0)
     pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
 
-#please work rectangle
 pygame.quit()
