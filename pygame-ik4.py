@@ -107,17 +107,20 @@ while not done:
 
 
     # move
-    
+
     x += x_change
     y += y_change
     z += z_change
-    
+
+    if x_change and z_change = 0:
+        w = math.sqrt((x**2) - (z**2))
+
     if x_change != 0:
         w = math.sqrt((x**2) - (z**2))
     elif z_change != 0:
         x = math.sqrt((w**2) + (z**2))
 
-        
+
     if ik(x, y, z) != False:
         # determine elbow point
         xe, ye, ze = ik(x,y,z)
@@ -131,6 +134,7 @@ while not done:
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
 
         pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (w)], 5)
+        print(w)
    #     pygame.draw.line(screen, green, (toriginz, toriginw), (ze, pxe), 5)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
