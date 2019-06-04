@@ -2,7 +2,8 @@
 # notes: can use continuously, but use one key at a time in an orderly fashion
 
 # able to change z coordinate, and see change on topview.
-# Also should be able to see where elbow joint is too
+# z is a plane, w is a dummy plane
+# Next is elbow joint
 
 
 import pygame, math, fractions, time
