@@ -123,13 +123,14 @@ while not done:
 
     if ik(x, y, z) != False:
         # determine elbow point
+        xe, ye, ze = ik(x,y,z)
         if xe == 0:
             we = 0
         else:
             we = math.sqrt((xe**2) - (ze**2))
             if xe < 0:
                 we = -we
-        xe, ye, ze = ik(x,y,z)
+        
         xo = x + originx; yo = originy - y; zo = toriginz + z
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
         
