@@ -62,8 +62,12 @@ def ik(x, y, z): # here is where we do math
         a_elbow = a_three
         
         xe = d_one * math.cos(a_shoulder)
+        if x == 0:
+            ze = 0
+        else:
+            ze = xe * (z / x)
         ye = (d_one * math.sin(a_shoulder))
-        ze = xe * (z / x)
+        
         return xe, ye, ze
     
     else:
