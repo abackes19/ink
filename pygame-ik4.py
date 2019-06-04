@@ -18,19 +18,19 @@ red = (255,0,0); green = (127, 232, 134)
 blue = (102, 136, 214); pink = (232, 13, 119)
 grey = (203, 206, 214)
 
-display_width = 1000
-display_height = 450
+display_width = 500
+display_height = 225
 screen = pygame.display.set_mode((display_width,display_height))
 screen.fill(white)
 clock = pygame.time.Clock()
 
 step = 2
-originx = 250
-originy = 250
-d_one = 124 # the distance from shoulder to elbow
-d_two = 96 # distance from elbow to wrist
-toriginz = 725
-toriginw = 250
+originx = 125
+originy = 125
+d_one = 60 # the distance from shoulder to elbow
+d_two = 50 # distance from elbow to wrist
+toriginz = 350
+toriginw = 125
 
 xm, ym = d_two, d_one
 x, y = d_two, d_one
