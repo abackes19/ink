@@ -112,10 +112,11 @@ while not done:
     y += y_change
     z += z_change
 
-    if x_change and z_change == 0:
+    if x == 0:
+        w = 0
+    elif x_change and z_change == 0:
         w = math.sqrt((x**2) - (z**2))
-
-    if x_change != 0:
+    elif x_change != 0:
         w = math.sqrt((x**2) - (z**2))
     elif z_change != 0:
         x = math.sqrt((w**2) + (z**2))
