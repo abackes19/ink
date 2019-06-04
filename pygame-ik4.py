@@ -53,7 +53,7 @@ def ik(x, y, z): # here is where we do math
     sqd_two = d_two ** 2
 
     d_three = math.sqrt((y**2) + (x**2))# determining distance from shoulder to wrist ^
-    if d_three < d_one + d_two and d_three > d_one - d_two and y > -24:
+    if d_three < d_one + d_two and d_three > d_one - d_two and y > -24 and z>x:
 
         a_three = math.acos((sqd_one + sqd_two - ((y**2) + (x ** 2))) / (2 * d_one * d_two))
         a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
