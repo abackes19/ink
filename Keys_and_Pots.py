@@ -185,7 +185,6 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
                 RPL.servoWrite(swivel_continuous, 0) #stops running while in range
                 RPL.pwmWrite(elbow_pul, 0, 10000) #stops running while in range
                 RPL.pwmWrite(shoulder_pul, 0, 10000) #stops running while in range
-                print 'Success'
 
         except: #to show the values of the motor arm
             import time
