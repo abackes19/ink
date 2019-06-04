@@ -57,7 +57,6 @@ def ik(x, y, z): # here is where we do math
         a_elbow = math.acos(round(((d_one ** 2 + d_two ** 2 - reach_length ** 2) / (2 * d_one * d_two)), 4))
         a_shoulder = math.asin(round((d_two * math.sin(a_elbow) / reach_length), 2)) + math.asin(round((y / reach_length), 4))
         a_swivel = math.atan2(round(x, 2), round(z, 2))
-        a_swivel = math.atan2(round(z, 2), round(x, 2))
         xe = d_one * math.cos(a_shoulder)
         ye = (d_one * math.sin(a_shoulder))
         ze = (xe * math.tan(a_swivel))
@@ -110,8 +109,8 @@ while not done:
     if ik(x, y, z) != False:
         # determine elbow point
         xe, ye, ze = ik(x,y,z)
-        xo = x + originx; yo = originy - y; zo = toriginz - z
-        xe = xe + originx; ye = originy - ye; ze = toriginz - ze
+        xo = x + originx; yo = originy - y; zo = toriginz + z
+        xe = xe + originx; ye = originy - ye; ze = toriginz + ze
 
         pxe = toriginx - (xe - originx)
         pxo = toriginx - (xo - originx)
@@ -120,8 +119,8 @@ while not done:
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
 
 #            pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
-        pygame.draw.line(screen, blue, (toriginx, toriginz), [(pxo), (zo)], 5)
-        pygame.draw.line(screen, green, (toriginx, toriginz), (pxe, ze), 5)
+        pygame.draw.line(screen, blue, (toriginz, toriginx), [(zo), (pxo)], 5)
+        pygame.draw.line(screen, green, (toriginz, toriginx), (ze, pxe), 5)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
@@ -132,8 +131,8 @@ while not done:
     pygame.draw.circle(screen, white, (originx, originy), (d_one + d_two), 0)
     pygame.draw.circle(screen, grey, (originx, originy), (d_one - d_two), 0)
     # topview
-    pygame.draw.circle(screen, white, (toriginx, toriginz), (d_one + d_two), 0)
-    pygame.draw.circle(screen, grey, (toriginx, toriginz), (10), 0)
+    pygame.draw.circle(screen, white, (toriginz, toriginx), (d_one + d_two), 0)
+    pygame.draw.circle(screen, grey, (toriginz, toriginx), (10), 0)
     pygame.draw.rect(screen, grey, [0, (originy + 24), display_width, display_width])
 
 #please work rectangle
