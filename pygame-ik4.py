@@ -128,7 +128,7 @@ while not done:
         xo = x + originx; yo = originy - y; zo = toriginz + z
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
 
-        we = math.sqrt(math.abs((xe**2) - (ze**2)))
+        we = math.sqrt(math.fabs((xe**2) - (ze**2)))
         if ze >= xe:
             we = -we
 
