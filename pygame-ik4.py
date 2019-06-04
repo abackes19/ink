@@ -27,8 +27,8 @@ originx = 250
 originy = 250
 d_one = 124 # the distance from shoulder to elbow
 d_two = 96 # distance from elbow to wrist
-toriginx = 725
-toriginz = 250
+toriginx = 250
+toriginz = 725
 
 xm, ym = d_two, d_one
 x, y = d_two, d_one
