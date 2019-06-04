@@ -128,12 +128,12 @@ while not done:
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
 
         pxe = toriginw - (xe - originx)
-        w = toriginw - w
+ 
 
         # draw line
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
 
-        pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (w)], 5)
+        pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (toriginw - w)], 5)
         print(w)
    #     pygame.draw.line(screen, green, (toriginz, toriginw), (ze, pxe), 5)
     else: # out of range so stay
