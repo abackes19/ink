@@ -131,7 +131,7 @@ while not done:
         we = math.sqrt(math.fabs((xe**2) - (ze**2)))
         if xe < 0:
             we = -we
-        elif xe = 0:
+        elif xe == 0:
             we = 0
 
         # draw line
