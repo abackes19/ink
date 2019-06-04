@@ -180,6 +180,12 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
                 RPL.servoWrite(swivel_continuous, 1000) #turn counterclockwise
             elif error_sw < max_error:
                 RPL.servoWrite(swivel_continuous, 0) #stops running while in range
+            
+            if quit == True: #stop the motors when the code ends
+                RPL.servoWrite(swivel_continuous, 0) #stops running while in range
+                RPL.pwmWrite(elbow_pul, 0, 10000) #stops running while in range
+                RPL.pwmWrite(shoulder_pul, 0, 10000) #stops running while in range
+                print 'Success'
 
         except: #to show the values of the motor arm
             import time
@@ -189,9 +195,3 @@ def motor_runner(): #sends signals to all the motors based on potentiometer read
 import threading #runs both functions simultanously
 threading.Thread(target = motor_runner, name = 'motor_runner').start()
 threading.Thread(target = key_reader, name = 'key_reader').start()
-
-if quit == True: #stop the motors when the code ends
-    RPL.servoWrite(swivel_continuous, 0) #stops running while in range
-    RPL.pwmWrite(elbow_pul, 0, 10000) #stops running while in range
-    RPL.pwmWrite(shoulder_pul, 0, 10000) #stops running while in range
-    print 'Success'
