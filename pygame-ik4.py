@@ -127,12 +127,13 @@ while not done:
         xe, ye, ze = ik(x,y,z)
         xo = x + originx; yo = originy - y; zo = toriginz + z
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
-
-        we = math.sqrt(math.fabs((xe**2) - (ze**2)))
-        if xe < 0:
-            we = -we
-        elif xe == 0:
+        
+        if xe == 0:
             we = 0
+        else:
+            we = math.sqrt(math.fabs((xe**2) - (ze**2)))
+            if xe < 0:
+                we = -we
 
         # draw line
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
