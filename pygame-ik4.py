@@ -53,10 +53,7 @@ def ik(x, y, z): # here is where we do math
 
     d_three = math.sqrt((y**2) + (x**2))# determining distance from shoulder to wrist ^
     if d_three < d_one + d_two and d_three > d_one - d_two and y > -24:
-        if x_change != 0:
-            w = math.sqrt(x**2 - z**2)
-        elif z_change != 0:
-            x = math.sqrt(w**2 + z**2)
+        
         a_three = math.acos((sqd_one + sqd_two - ((y**2) + (x ** 2))) / (2 * d_one * d_two))
         a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
         a_four = math.atan2(y , x) # angle between 0 line and wrist
@@ -115,6 +112,11 @@ while not done:
     x += x_change
     y += y_change
     z += z_change
+    
+    if x_change != 0:
+        w = math.sqrt(x**2 - z**2)
+    elif z_change != 0:
+        x = math.sqrt(w**2 + z**2)
 
     if ik(x, y, z) != False:
         # determine elbow point
