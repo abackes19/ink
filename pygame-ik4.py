@@ -53,7 +53,7 @@ def ik(x, y, z): # here is where we do math
 
     d_three = math.sqrt((y**2) + (x**2))# determining distance from shoulder to wrist ^
     if d_three < d_one + d_two and d_three > d_one - d_two and y > -24:
-        
+
         a_three = math.acos((sqd_one + sqd_two - ((y**2) + (x ** 2))) / (2 * d_one * d_two))
         a_two = math.asin((d_two * math.sin(a_three) / d_three)) # angle between shoulder and wrist
         a_four = math.atan2(y , x) # angle between 0 line and wrist
@@ -61,13 +61,11 @@ def ik(x, y, z): # here is where we do math
         a_elbow = a_three
 
 
-
-
         a_swivel = math.atan2(round(z, 2), round(x, 2))
         xe = d_one * math.cos(a_shoulder)
         ye = (d_one * math.sin(a_shoulder))
         ze = (xe * math.tan(a_swivel))
-        return xe, ye, ze, x, w
+        return xe, ye, ze
     else:
         return False
 
@@ -109,18 +107,21 @@ while not done:
 
 
     # move
-    x += x_change
-    y += y_change
-    z += z_change
-    
     if x_change != 0:
         w = math.sqrt(x**2 - z**2)
+        x += x_change
     elif z_change != 0:
         x = math.sqrt(w**2 + z**2)
 
+
+    y += y_change
+    z += z_change
+
+
+
     if ik(x, y, z) != False:
         # determine elbow point
-        xe, ye, ze, x, w = ik(x,y,z)
+        xe, ye, ze = ik(x,y,z)
         xo = x + originx; yo = originy - y; zo = toriginz + z
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
 
@@ -134,7 +135,7 @@ while not done:
    #     pygame.draw.line(screen, green, (toriginz, toriginw), (ze, pxe), 5)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
-        pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
+#        pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
 
 # Be IDLE friendly
     pygame.display.update()
