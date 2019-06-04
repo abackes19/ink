@@ -3,7 +3,7 @@
 
 # able to change z coordinate, and see change on topview.
 # z is a plane, w is a dummy plane
-# Next is elbow joint
+# elbow is working
 
 
 import pygame, math, fractions, time
@@ -13,7 +13,7 @@ pygame.init()
 
 
 white = (255,255,255); black = (0,0,0)
-red = (255,0,0); green = (39, 147, 52)
+red = (255,0,0); green = (127, 232, 134)
 blue = (102, 136, 214); pink = (232, 13, 119)
 grey = (203, 206, 214)
 
@@ -137,8 +137,10 @@ while not done:
         
 
         # draw line
-        pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
-
+#        pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
+        pygame.draw.line(screen, blue, (xe, ye), [(xo), (yo)], 5)
+        pygame.draw.line(screen, green, (originx, originy), (xe, ye), 5)
+        
         pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (toriginw - w)], 5)
         pygame.draw.line(screen, green, (toriginz, toriginw), (ze, toriginw - we), 5)
     else: # out of range so stay
