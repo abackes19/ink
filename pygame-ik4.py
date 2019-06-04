@@ -4,6 +4,7 @@
 # able to change z coordinate, and see change on topview.
 # z is a plane, w is a dummy plane
 # elbow is working
+# don't cross x
 
 
 import pygame, math, fractions, time
@@ -62,10 +63,7 @@ def ik(x, y, z): # here is where we do math
         a_elbow = a_three
         
         xe = d_one * math.cos(a_shoulder)
-        if x == 0:
-            ze = 0
-        else:
-            ze = xe * (z / x)
+        ze = xe * (z / x)
         ye = (d_one * math.sin(a_shoulder))
         
         return xe, ye, ze
@@ -116,9 +114,8 @@ while not done:
     y += y_change
     z += z_change
 
-    if x == 0:
-        w = 0
-    elif x_change and z_change == 0:
+    
+    if x_change and z_change == 0:
         w = math.sqrt((x**2) - (z**2))
     elif x_change != 0:
         w = math.sqrt((x**2) - (z**2))
