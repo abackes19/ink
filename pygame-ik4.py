@@ -124,15 +124,15 @@ while not done:
         xo = x + originx; yo = originy - y; zo = toriginz + z
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
 
-        pxe = toriginx - (xe - originx)
-        w = toriginx - w
+        pxe = toriginw - (xe - originx)
+        w = toriginw - w
 
         # draw line
         pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
 
 #            pygame.draw.line(screen, blue, [toriginx,toriginz], [toriginx + d_one, toriginz + d_two], 5) # not sure what this was
         pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (w)], 5)
-        pygame.draw.line(screen, green, (toriginz, toriginw), (ze, pxe), 5)
+   #     pygame.draw.line(screen, green, (toriginz, toriginw), (ze, pxe), 5)
     else: # out of range so stay
         pygame.draw.lines(screen, pink, False, [[originx,originy], [xe, ye], [xo, yo]], 5)
         pygame.draw.circle(screen, pink, (x + originx, originy - y), (5), 0)
