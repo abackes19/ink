@@ -1,4 +1,4 @@
-# server.py 
+# this works! next step: do we send a file or can we just send variables?
 import socket                                         
 import time
 
