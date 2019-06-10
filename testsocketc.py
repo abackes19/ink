@@ -12,7 +12,7 @@ port = 12345
 
 # connect to the server on local computer
 s.connect(('192.168.21.135', port))
-s.sendall(x)
+s.sendall("%i" % x)
 
 
 # receive data from the server
