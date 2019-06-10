@@ -13,7 +13,7 @@ port = 12345
 # we have not typed any ip in the ip field
 # instead we have inputted an empty string
 # this makes the server listen to requests
-# coming from other computers on the network 
+# coming from other computers on the network
 s.bind(('', port))
 print "socket binded to %s" %(port)
 
@@ -31,6 +31,6 @@ while True:
 
    # send a thank you message to the client.
    c.send('Thank you for connecting')
-
+   print c.recv(1024)
    # Close the connection with the client
    c.close()
