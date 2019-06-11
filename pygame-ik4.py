@@ -18,19 +18,19 @@ red = (255,0,0); green = (127, 232, 134)
 blue = (102, 136, 214); pink = (232, 13, 119)
 grey = (203, 206, 214)
 
-display_width = 500
-display_height = 225
+display_width = 800
+display_height = 450
 screen = pygame.display.set_mode((display_width,display_height))
 screen.fill(white)
 clock = pygame.time.Clock()
 
 step = 2
-originx = 125
-originy = 125
-d_one = 60 # the distance from shoulder to elbow
-d_two = 50 # distance from elbow to wrist
-toriginz = 350
-toriginw = 125
+originx = 175
+originy = 250
+d_one = 90 # the distance from shoulder to elbow
+d_two = 70 # distance from elbow to wrist
+toriginz = 550
+toriginw = 250
 
 xm, ym = d_two, d_one
 x, y = d_two, d_one
@@ -61,13 +61,13 @@ def ik(x, y, z): # here is where we do math
         a_four = math.atan2(y , x) # angle between 0 line and wrist
         a_shoulder = (a_four + a_two)  # shoulder angle?
         a_elbow = a_three
-        
+
         xe = d_one * math.cos(a_shoulder)
         ze = xe * (z / x)
         ye = (d_one * math.sin(a_shoulder))
-        
+
         return xe, ye, ze
-    
+
     else:
         return False
 
@@ -92,9 +92,9 @@ def pos(x, y, z):
         elif event.key == pygame.K_s:
             y_change = -step
         elif event.key == pygame.K_q:
-            z_change = step
-        elif event.key == pygame.K_e:
             z_change = -step
+        elif event.key == pygame.K_e:
+            z_change = step
 
     return x_change, y_change, z_change
 
@@ -114,7 +114,7 @@ while not done:
     y += y_change
     z += z_change
 
-    
+
     if x_change and z_change == 0:
         w = math.sqrt((x**2) - (z**2))
     elif x_change != 0:
@@ -132,17 +132,17 @@ while not done:
             we = math.sqrt((xe**2) - (ze**2))
             if xe < 0:
                 we = -we
-        
+
         xo = x + originx; yo = originy - y; zo = toriginz + z
         xe = xe + originx; ye = originy - ye; ze = toriginz + ze
-        
-        
+
+
 
         # draw line
 #        pygame.draw.lines(screen, blue, False, [[originx,originy], [xe, ye], [xo, yo]], 5) # sideview
         pygame.draw.line(screen, blue, (xe, ye), [(xo), (yo)], 5)
         pygame.draw.line(screen, pink, (originx, originy), (xe, ye), 5)
-        
+
         pygame.draw.line(screen, blue, (toriginz, toriginw), [(zo), (toriginw - w)], 5)
         pygame.draw.line(screen, pink, (toriginz, toriginw), (ze, toriginw - we), 5)
     else: # out of range so stay

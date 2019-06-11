@@ -7,7 +7,7 @@ print "Socket successfully created"
 
 # reserve a port on your computer in our
 # case it is 12345 but it can be anything
-port = 12345
+port = 2197
 
 # Next bind to the port
 # we have not typed any ip in the ip field
@@ -31,6 +31,7 @@ while True:
 
    # send a thank you message to the client.
    c.send('Thank you for connecting')
-   print c.recv(1024)
+   print c.recv(70)
+
    # Close the connection with the client
    c.close()

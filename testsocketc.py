@@ -5,14 +5,18 @@ import socket
 s = socket.socket()
 
 x = 87
+y = 92
 
 
 # Define the port on which you want to connect
-port = 12345
+port = 2197
 
 # connect to the server on local computer
-s.connect(('192.168.21.135', port))
-s.sendall("%i" % x)
+# first number if on computer: 127.0.0.1
+# if on pi: 192.168.21.xxx, xxx being the chip #
+s.connect(('127.0.0.1', port))
+s.send("%i" % x)
+s.send("%i" % y)
 
 
 # receive data from the server
