@@ -27,8 +27,8 @@ clock = pygame.time.Clock()
 step = 2
 originx = 175
 originy = 250
-d_one = 90 # the distance from shoulder to elbow
-d_two = 70 # distance from elbow to wrist
+d_one = 62 # the distance from shoulder to elbow
+d_two = 48 # distance from elbow to wrist
 toriginz = 550
 toriginw = 250
 
